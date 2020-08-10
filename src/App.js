@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Inventory from "./Inventory.js";
+import Header from "./Header";
+import Input from "./Input";
 
 function App() {
+  const [items, setItems] = useState(createInitialInventory());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+
+      <Input />
+
+      <Inventory items={items} />
+    </>
   );
+}
+
+// generates a default/initial inventory
+function createInitialInventory() {
+  let defaultItems = [];
+
+  for (let i = 0; i < 10; i++) {
+    defaultItems.push(createInitialItem(i));
+  }
+
+  return defaultItems;
+}
+
+// generates an item with the given ID to go into the initial inventory.
+function createInitialItem(id) {
+  let explodes; // is this element explosive?
+
+  // all odd elements are marked as explosive
+  id % 2 === 0 ? (explodes = false) : (explodes = true);
+
+  return {
+    id: id,
+    name: `Item ${id}`,
+    explosive: explodes,
+  };
 }
 
 export default App;
