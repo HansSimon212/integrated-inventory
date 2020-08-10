@@ -14,7 +14,7 @@ An app for managing and monitoring of the warehouse inventory at the Phoenix Che
 </ul>
 
 <hr>
-<h3>Inventory system: Old vs. New</h3>
+<h3>Inventory System: Old vs. New</h3>
 <hr>
 
 <h4>Flaws of the old system:</h4>
@@ -26,7 +26,7 @@ An app for managing and monitoring of the warehouse inventory at the Phoenix Che
             <li>Relocation of items required manual entry of new location (employees had to walk to the office space in the warehouse and enter new location by hand)</li>
         </ul> 
     </li>
-    <li>Error-prone:
+    <li> <b>Error-prone:</b> 
         <ul>
             <li>Items missing from filled purchase orders</li>
             <li>Incorrect items sent to customers</li>
