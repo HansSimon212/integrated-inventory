@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import Inventory from "./Inventory.js";
 import Header from "./Header";
-import Input from "./Input";
 
 // Void -> Array
 // Generates a default/initial inventory
@@ -37,7 +36,7 @@ function App() {
     <>
       <Header />
 
-      <Input items={items} />
+  {/* Input Section*/}
 
       <Inventory items={items} />
     </>
