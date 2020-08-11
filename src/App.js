@@ -1,6 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Inventory from "./Inventory.js";
 import Header from "./Header";
+import uuidv4 from "uuid/dist/v4";
+
+const LOCAL_STORAGE_ITEMS_KEY = `inventory.items`;
 
 // Void -> Array
 // Generates a default/initial inventory
@@ -32,7 +35,21 @@ function createInitialItem(id) {
 function App() {
   const [items, setItems] = useState(createInitialInventory);
   const textFieldRef = useRef();
-  const errorRef = useRef("");
+
+  // loads item list on start/reload
+  useEffect(() => {
+    const storedItems = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_ITEMS_KEY)
+    );
+
+    setItems(storedItems);
+  }, []);
+
+  // stores item list on change
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_ITEMS_KEY, JSON.stringify(items));
+    alert("Save");
+  }, [items]);
 
   function handleAddItem(e) {
     let name = textFieldRef.current.value;
@@ -49,7 +66,7 @@ function App() {
     }
 
     let newItem = {
-      id: 2055,
+      id: 311,
       name: name,
       explosive: true,
     };
