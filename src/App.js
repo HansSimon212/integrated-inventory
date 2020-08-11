@@ -32,12 +32,14 @@ function createInitialItem(id) {
 function App() {
   const [items, setItems] = useState(createInitialInventory);
   const textFieldRef = useRef();
-  const errorRef = useRef('');
+  const errorRef = useRef("");
 
   function handleAddItem(e) {
     let name = textFieldRef.current.value;
-        // disallows empty names
-    if(name === '') {return;}
+    // disallows empty names
+    if (name === "") {
+      return;
+    }
 
     for (const item of items) {
       if (item.name === name) {
@@ -49,10 +51,10 @@ function App() {
     let newItem = {
       id: 2055,
       name: name,
-      explosive: true
-    }
-    
-    setItems(prev => [...prev, newItem]);
+      explosive: true,
+    };
+
+    setItems((prev) => [...prev, newItem]);
   }
 
   // Event -> Void
@@ -64,34 +66,30 @@ function App() {
   // Event -> Void
   // Removes the item with the given name from the inventory
   function handleRemoveItem(e) {
-    
-    let name = textFieldRef.current.value;
-    if(name === '') return;
-    
-    setItems(items => {
-      let newItems = items.splice(0,0);
-    
-      for(let i = 0; i < items.length; i++) {
-        if(items[i].name === name) {
-          newItems.splice(i,1);
-          return newItems;
-        }
+    let input = textFieldRef.current.value;
+    if (input === "") return;
+
+    let itemsCpy = JSON.parse(JSON.stringify(items));
+
+    for (let i = 0; i < itemsCpy.length; i++) {
+      if (itemsCpy[i].name === input) {
+        itemsCpy.splice(i, 1);
+        setItems(itemsCpy);
       }
-    });
+    }
   }
 
   return (
     <>
       <Header />
 
-  {/* Input Section*/}
-  <input type="text" ref={textFieldRef}/>
-  <button onClick={handleAddItem}>Add Item</button>
-  <button onClick={handleClear}>Clear</button>
-  <button onClick={handleRemoveItem}>Remove Item</button>
+      {/* Input Section*/}
+      <input type="text" ref={textFieldRef} />
+      <button onClick={handleAddItem}>Add Item</button>
+      <button onClick={handleClear}>Clear</button>
+      <button onClick={handleRemoveItem}>Remove Item</button>
 
       <Inventory items={items} />
-
     </>
   );
 }
