@@ -1,23 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Inventory from "./Inventory.js";
 import Header from "./Header";
 import Input from "./Input";
 
-function App() {
-  const [items, setItems] = useState(createInitialInventory());
-
-  return (
-    <>
-      <Header />
-
-      <Input />
-
-      <Inventory items={items} />
-    </>
-  );
-}
-
-// generates a default/initial inventory
+// Void -> Array
+// Generates a default/initial inventory
 function createInitialInventory() {
   let defaultItems = [];
 
@@ -28,7 +15,8 @@ function createInitialInventory() {
   return defaultItems;
 }
 
-// generates an item with the given ID to go into the initial inventory.
+// Void -> Object
+// Generates an item with the given ID to go into the initial inventory.
 function createInitialItem(id) {
   let explodes; // is this element explosive?
 
@@ -40,6 +28,20 @@ function createInitialItem(id) {
     name: `Item ${id}`,
     explosive: explodes,
   };
+}
+
+function App() {
+  const [items, setItems] = useState(createInitialInventory);
+
+  return (
+    <>
+      <Header />
+
+      <Input items={items} />
+
+      <Inventory items={items} />
+    </>
+  );
 }
 
 export default App;
