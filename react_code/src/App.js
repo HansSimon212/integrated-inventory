@@ -8,11 +8,9 @@ const LOCAL_STORAGE_ITEMS_KEY = `inventory.items`;
 // Generates a default/initial inventory
 function createInitialInventory() {
   let defaultItems = [];
-
   for (let i = 0; i < 10; i++) {
     defaultItems.push(createInitialItem(i));
   }
-
   return defaultItems;
 }
 
@@ -20,10 +18,8 @@ function createInitialInventory() {
 // Generates an item with the given ID to go into the initial inventory.
 function createInitialItem(id) {
   let explodes; // is this element explosive?
-
   // all odd elements are marked as explosive
   id % 2 === 0 ? (explodes = false) : (explodes = true);
-
   return {
     id: id,
     name: `Item ${id}`,
