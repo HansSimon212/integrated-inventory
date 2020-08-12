@@ -1,6 +1,6 @@
 # integrated-inventory
 
-An app for managing and monitoring of the warehouse inventory at the Phoenix Chemical warehouse.
+An integrated inventory management system for the LEI (Leading Edge Innovations) chemical distribution warehouse.
 
 <hr>
 <h3>General:</h3>
