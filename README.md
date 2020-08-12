@@ -26,7 +26,7 @@ An integrated inventory management system for the LEI (Leading Edge Innovations)
             <li>Relocation of items required manual entry of new location (employees had to walk to the office space in the warehouse and enter new location by hand)</li>
         </ul> 
     </li>
-    <li>Error-prone:
+   <li><b>Error-prone:</b>
         <ul>
             <li>Items missing from filled purchase orders</li>
             <li>Incorrect items sent to customers</li>
