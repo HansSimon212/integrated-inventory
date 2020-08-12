@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Inventory from "./Inventory.js";
 import Header from "./Header";
-import uuidv4 from "uuid/dist/v4";
 
 const LOCAL_STORAGE_ITEMS_KEY = `inventory.items`;
 
