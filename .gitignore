@@ -20,5 +20,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-app_code/react_code/node_modules
-app_code/react_native_code/node_modules
+app/react_code/node_modules
+app/react_native_code/node_modules
