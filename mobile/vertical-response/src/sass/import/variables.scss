@@ -3,12 +3,12 @@
 
 $menu_link_color: #666;
 $vertical_nav_bg_color: #f6f6f6;
-$menu_item_background: darken( $vertical_nav_bg_color, 5% );
-$menu_item_hover_background: darken( $vertical_nav_bg_color, 10% );
+$menu_item_background: darken($vertical_nav_bg_color, 5%);
+$menu_item_hover_background: darken($vertical_nav_bg_color, 10%);
 
-$darker_background_5: darken( $vertical_nav_bg_color, 5% );
-$darker_background_10: darken( $vertical_nav_bg_color, 10% );
-$darker_background_15: darken( $vertical_nav_bg_color, 15% );
+$darker_background_5: darken($vertical_nav_bg_color, 5%);
+$darker_background_10: darken($vertical_nav_bg_color, 10%);
+$darker_background_15: darken($vertical_nav_bg_color, 15%);
 
 $vertical_nav_width: 200px;
 $vertical_nav_margin_top: 50px;

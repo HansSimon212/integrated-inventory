@@ -45,18 +45,14 @@ header h1 {
   clear: both;
 }
 
-
 /* Small devices (tablets)
 ==========================*/
 @media (min-width: 768px) {
-
 }
-
 
 /* Medium devices (desktops)
 ==========================*/
 @media (min-width: 992px) {
-
   body {
     overflow-y: scroll;
   }
@@ -75,5 +71,4 @@ header h1 {
   .wrapper__minify {
     margin-left: 50px;
   }
-
 }

@@ -4,30 +4,26 @@ Vertical Reponsive Menu
 =========================
 */
 
-
 // Core variables and mixins
 @import "import/variables";
 @import "import/mixins";
-
 
 // CSS
 * {
   box-sizing: border-box;
 }
 
-
 // Hack to vertical_nav height 100% on mobile
 html {
+  //TODO
   //min-height: 100%;
   //position: relative;
 }
-
 
 :focus,
 :active {
   outline: none;
 }
-
 
 .toggle_menu {
   display: block;
@@ -45,9 +41,7 @@ html {
     display: block;
     font-size: 28px;
   }
-
 }
-
 
 .vertical_nav {
   position: absolute;
@@ -61,14 +55,13 @@ html {
 }
 
 .vertical_nav__closed {
-  left: - $vertical_nav_width !important;
+  left: -$vertical_nav_width !important;
 }
 
 .vertical_nav__opened {
   left: 0px !important;
   box-shadow: rgba(0, 0, 0, 0.4) -30px 0 30px 30px;
 }
-
 
 .menu {
   position: absolute;
@@ -107,7 +100,6 @@ html {
   .sub_menu {
     display: block;
   }
-
 }
 
 .menu--link {
@@ -125,7 +117,6 @@ html {
     color: #000;
     background: $menu_item_hover_background;
   }
-
 }
 
 .menu--icon {
@@ -142,7 +133,6 @@ html {
   height: $menu_link_height;
   line-height: $menu_link_height;
 }
-
 
 // Menu sub level
 .sub_menu {
@@ -163,14 +153,12 @@ html {
     color: #000;
     background: $menu_item_hover_background;
   }
-
 }
 .sub_menu--link__active {
   color: #000;
   font-weight: 500;
 }
 // End - Menu sub level
-
 
 // collapse_menu -- display none in mobile
 .collapse_menu {
@@ -179,17 +167,14 @@ html {
   .collapse_menu--icon {
     @extend %transition;
   }
-
 }
 
-
 // Small devices (tablets)
-@media (min-width: 768px) {}
-
+@media (min-width: 768px) {
+}
 
 // Medium devices (desktops)
 @media (min-width: 992px) {
-
   .vertical_nav {
     left: 0;
   }
@@ -197,7 +182,6 @@ html {
   .toggle_menu {
     display: none;
   }
-
 
   // Minify menu
   .vertical_nav__minify {
@@ -223,7 +207,6 @@ html {
       content: "";
     }
 
-
     // Menu sub level
     .menu--subitens__opened .menu--label,
     .menu--subitens__opened .sub_menu {
@@ -241,14 +224,12 @@ html {
     }
     // End - Menu sub level
 
-
     .collapse_menu--icon {
       -webkit-transform: rotate(180deg);
+      transform: rotate(180deg); //TODO
     }
-
   }
   // End - Minify menu
-
 
   .collapse_menu {
     position: absolute;
@@ -282,7 +263,6 @@ html {
       &:before {
         content: "\f053";
       }
-
     }
 
     .collapse_menu--label {
@@ -290,14 +270,10 @@ html {
       height: $menu_link_height;
       line-height: $menu_link_height;
     }
-
   }
-
-
 }
 // End - Medium devices (desktops)
 
-
 // Large devices (Large desktops)
-@media (min-width: 1200px) {}
-
+@media (min-width: 1200px) {
+}
