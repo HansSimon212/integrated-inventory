@@ -19,7 +19,9 @@ An integrated inventory management system for the LEI (Leading Edge Innovations)
 <hr>
    
 <h4>App Development:</h4>
-[link to Google!](http://google.com)
+<ul>
+    <li>https://github.com/HansSimon212/integrated-inventory.git</li>
+</ul>
 
 <h4>Databases:</h4>
 <ul>
