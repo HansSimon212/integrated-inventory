@@ -29,7 +29,7 @@ header h1 {
   height: 50px;
   line-height: 50px;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 22px;
   float: left;
 }
 
@@ -43,6 +43,34 @@ header h1 {
   content: "";
   display: block;
   clear: both;
+}
+
+#main_content {
+  align-content: center;
+  align-items: center;
+}
+
+.main_content_title,
+.nav_grid_title {
+  text-align: center;
+}
+
+.nav_grid_container {
+  display: grid;
+  grid-template-columns: repeat(2, 150px);
+  grid-template-rows: repeat(2, 100px);
+  grid-auto-rows: minmax(100px, auto);
+
+  row-gap: 20px;
+  column-gap: 20px;
+}
+
+.grid_item {
+  text-align: center;
+  border: medium solid black;
+  border-radius: 25px;
+  font-size: 20px;
+  font-style: bold;
 }
 
 /* Small devices (tablets)
