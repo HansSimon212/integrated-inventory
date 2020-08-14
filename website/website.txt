@@ -1,2 +1,0 @@
-This file exists so the website folder is visible on github
-(empty directories aren't visible).
