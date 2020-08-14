@@ -25,7 +25,7 @@ An integrated inventory management system for the LEI (Leading Edge Innovations)
 
 <h4>Databases:</h4>
 <ul>
-    <li>Database UI: https://wilczakindustrialparts.com/LEI/Multi/inventory.php</li>
+    <li>Database UI: https://wilczakindustrialparts.com/LEI/inventory.php</li>
 </ul>
 
 <!-- Notes about the improvements from the existing system to the new system.-->
