@@ -50,6 +50,10 @@ header h1 {
   align-items: center;
 }
 
+#main_content * {
+  color: rgba(40, 40, 40);
+}
+
 .main_content_title,
 .nav_grid_title {
   text-align: center;
@@ -67,10 +71,9 @@ header h1 {
 
 .grid_item {
   text-align: center;
-  border: medium solid black;
+  border: medium solid rgba(40, 40, 40);
   border-radius: 25px;
   font-size: 20px;
-  font-style: bold;
 }
 
 /* Small devices (tablets)
