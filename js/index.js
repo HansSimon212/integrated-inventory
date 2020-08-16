@@ -1,23 +1,23 @@
-// /*
-//     Global variables
-// */
-// var cameraId = null;
+/*
+    Global variables
+*/
+var cameraId = null;
 
-// // This method will trigger user permissions
-// Html5Qrcode.getCameras()
-//   .then((devices) => {
-//     /**
-//      * devices would be an array of objects of type:
-//      * { id: "id", label: "label" }
-//      */
-//     if (devices && devices.length) {
-//       cameraId = devices[0].id;
-//       // .. use this to start scanning.
-//     }
-//   })
-//   .catch((err) => {
-//     // handle err
-//   });
+// This method will trigger user permissions
+Html5Qrcode.getCameras()
+  .then((devices) => {
+    /**
+     * devices would be an array of objects of type:
+     * { id: "id", label: "label" }
+     */
+    if (devices && devices.length) {
+      cameraId = devices[0].id;
+      // .. use this to start scanning.
+    }
+  })
+  .catch((err) => {
+    // handle err
+  });
 
 // // Starts using the camera
 // const html5QrCode = new Html5Qrcode(
