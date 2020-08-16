@@ -103,12 +103,12 @@ header * {
   display: inline-block;
 }
 
-#main_divider {
-  margin: 0 0 15px 0;
-}
-
 #player {
   border: thick solid #62a845;
+}
+
+#canvas {
+  display: none;
 }
 
 #capture {
@@ -119,7 +119,7 @@ header * {
   border: thin solid black;
   border-radius: 15px;
   width: 175px;
-  margin-bottom: 15px;
+  margin: 15px;
 }
 
 /* #qr-reader {

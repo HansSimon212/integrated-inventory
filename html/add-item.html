@@ -114,42 +114,15 @@
         <section id="main_content">
             <h2 class="main_content_title">Add Item</h2>
             <i>Add a new item to the inventory</i>
+            <hr>
 
-            <div id="main_divider">
-                <hr>
-            </div>
-
+            <video id="player" controls autoplay width="300px"></video>
             <button id="capture">Capture QR Code</button>
-            <video id="player" controls autoplay width="250px"></video>
-            <canvas id="canvas" width=250 height=187.5></canvas>
-
-            <script>
-                const player = document.getElementById('player');
-                const canvas = document.getElementById('canvas');
-                const context = canvas.getContext('2d');
-                const captureButton = document.getElementById('capture');
-
-                const constraints = {
-                    video: true,
-                };
-
-                captureButton.addEventListener('click', () => {
-                    player.remove();
-                    canvas.style.border = "thick solid #62a845";
-                    // Draw the video frame to the canvas.
-                    context.drawImage(player, 0, 0, canvas.width, canvas.height);
-                });
-
-                // Attach the video stream to the video element and autoplay.
-                navigator.mediaDevices.getUserMedia(constraints)
-                    .then((stream) => {
-                        player.srcObject = stream;
-                    });
-            </script>
-
+            <canvas id="canvas" width=300 height=227.5></canvas>
         </section>
     </div>
 
+    <script src="../js/capture.js"></script>
     <script src="../vertical-responsive-menu.js"></script>
     <script src="../qr-scanner/minified/html5-qrcode.min.js"></script>
     <script src="../js/index.js"></script>
