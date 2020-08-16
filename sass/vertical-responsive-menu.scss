@@ -25,24 +25,6 @@ html {
   outline: none;
 }
 
-.toggle_menu {
-  display: block;
-  float: left;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  padding: 0;
-  background: none;
-  border: 0;
-  text-align: center;
-  cursor: pointer;
-
-  i {
-    display: block;
-    font-size: 28px;
-  }
-}
-
 .vertical_nav {
   position: absolute;
   left: -$vertical_nav_width;

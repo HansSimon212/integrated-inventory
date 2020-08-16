@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>LEI Inventory Manager</title>
+    <title>Inventory Manager</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -16,10 +16,13 @@
 
 <body>
     <header class="header clearfix">
+
         <button type="button" id="toggleMenu" class="toggle_menu">
             <i class="fa fa-bars"></i>
         </button>
-        <h1>LEI Inventory Manager</h1>
+        <img src="../imgs/lei_logo_resize.png" alt="LEI logo image file not found." id="mainLogo">
+        <h1 id="mainTitle">Inventory Manager</h1>
+
     </header>
 
     <nav class="vertical_nav">
@@ -32,9 +35,8 @@
                 </a>
             </li>
 
-
             <li class="menu--item">
-                <a href="#" class="menu--link" title="Find Item">
+                <a href="find-item.html" class="menu--link" title="Find Item">
                     <i class="menu--icon fa fa-fw fa-search"></i>
                     <span class="menu--label">Find Item</span>
                 </a>
@@ -61,32 +63,45 @@
                 </a>
             </li>
 
+            <li class="menu--item">
+                <a href="update-weight.html" class="menu--link" title="Update Item Weight">
+                    <i class="menu--icon fa fa-fw fa-anchor"></i>
+                    <span class="menu--label">Update Item Weight</span>
+                </a>
+            </li>
 
+
+            <li class="menu--item">
+                <a href="get-info.html" class="menu--link" title="Get Item Info">
+                    <i class="menu--icon fa fa-fw fa-info"></i>
+                    <span class="menu--label">Get Item Info</span>
+                </a>
+            </li>
             <!--
-           <li class="menu--item menu--item__has_sub_menu">
-          <label class="menu--link" title="Move Item">
-            <i class="menu--icon fa fa-fw fa-qrcode"></i>
-            <span class="menu--label">Move</span>
-          </label>
+        <li class="menu--item menu--item__has_sub_menu">
+        <label class="menu--link" title="Move Item">
+        <i class="menu--icon fa fa-fw fa-qrcode"></i>
+        <span class="menu--label">Move</span>
+        </label>
 
-          <ul class="sub_menu">
-            <li class="sub_menu--item">
-              <a
-                href="http://google.com"
-                target="_blank"
-                class="sub_menu--link sub_menu--link__active"
-                >Submenu</a
-              >
-            </li>
-            <li class="sub_menu--item">
-              <a href="#" class="sub_menu--link">Submenu</a>
-            </li>
-            <li class="sub_menu--item">
-              <a href="#" class="sub_menu--link">Submenu</a>
-            </li>
-          </ul>
+        <ul class="sub_menu">
+        <li class="sub_menu--item">
+            <a
+            href="http://google.com"
+            target="_blank"
+            class="sub_menu--link sub_menu--link__active"
+            >Submenu</a
+            >
         </li>
-        -->
+        <li class="sub_menu--item">
+            <a href="#" class="sub_menu--link">Submenu</a>
+        </li>
+        <li class="sub_menu--item">
+            <a href="#" class="sub_menu--link">Submenu</a>
+        </li>
+        </ul>
+    </li>
+    -->
 
             <button id="collapse_menu" class="collapse_menu">
                 <i class="collapse_menu--icon fa fa-fw"></i>
@@ -96,69 +111,15 @@
 
     <div class="wrapper">
         <section id="main_content">
-            <h1 class="main_content_title">Find Item</h1>
+            <h2 class="main_content_title">Find Item</h2>
+            <i>Locate an item in the warehouse</i>
             <hr>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                fermentum interdum orci in finibus. Cras eu ante condimentum,
-                efficitur libero vitae, rhoncus eros. Curabitur a auctor sem, ac porta
-                metus. Ut volutpat eu neque nec mattis. Nullam viverra sem vitae diam
-                sollicitudin pulvinar. Ut elementum urna non mollis eleifend. Cras
-                maximus rhoncus lacus, vitae pellentesque nunc sodales a. Donec
-                blandit nec odio sit amet porttitor.
-            </p>
-            <p>
-                Vestibulum a est vitae risus porta sollicitudin vitae a neque.
-                Curabitur facilisis risus quis libero viverra aliquet. Vestibulum
-                vehicula elit eget velit vulputate, id bibendum mauris hendrerit.
-                Donec eleifend lorem eu pulvinar feugiat. Cras at feugiat tellus. Ut
-                non orci ac turpis euismod iaculis non at sem. Vestibulum sit amet
-                nulla est. Etiam sodales condimentum tellus, sed auctor diam sagittis
-                et. Suspendisse id orci at lectus scelerisque mattis. Vivamus mollis
-                euismod massa, vitae volutpat nisi commodo et. Donec a tellus nulla.
-                Nunc quis ligula cursus, blandit nulla vitae, ullamcorper neque.
-                Aliquam dictum tempus sem nec dignissim.
-            </p>
-            <p>
-                Fusce luctus lacus a ipsum dapibus pellentesque. Nunc dapibus metus
-                lacinia enim ultrices consequat. Praesent convallis elit sed velit
-                hendrerit congue. Donec aliquam velit et egestas bibendum. Fusce nec
-                urna euismod, tempor eros id, scelerisque diam. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos
-                himenaeos. Cras diam ex, posuere a tristique sed, efficitur in velit.
-            </p>
-            <p>
-                Duis eu odio dictum arcu consequat tempor nec a neque. Duis ultrices
-                fermentum nulla in interdum. Donec imperdiet bibendum nisl. Donec
-                justo nisl, iaculis nec eleifend sit amet, tincidunt finibus quam.
-                Aenean lobortis tortor ac imperdiet ultrices. Donec a eleifend sem.
-                Praesent vitae lorem faucibus, imperdiet magna vel, mollis dolor.
-                Aenean ut sollicitudin ex. Nullam viverra faucibus ante et pulvinar.
-                Curabitur maximus est sit amet ante elementum sagittis. Aliquam at
-                tempor orci. Nam vel volutpat metus. Quisque semper, enim at fermentum
-                hendrerit, elit leo volutpat nunc, a sagittis nunc urna nec dolor.
-                Praesent lobortis elit dapibus eros suscipit, ut semper lectus
-                fermentum.
-            </p>
-            <p>
-                Curabitur sed mi sapien. Nullam ullamcorper laoreet dui, id fermentum
-                nisl aliquam et. Proin iaculis magna fermentum nisl rutrum cursus.
-                Quisque vitae auctor sem. Pellentesque habitant morbi tristique
-                senectus et netus et malesuada fames ac turpis egestas. Phasellus
-                aliquam, arcu commodo tristique suscipit, risus augue ullamcorper
-                risus, in dapibus libero lacus eu odio. Praesent rutrum suscipit
-                luctus. Pellentesque id erat nibh. Integer vel orci tristique,
-                fermentum leo vitae, tincidunt urna. Suspendisse venenatis metus nisl,
-                non tincidunt orci elementum ut. Curabitur vitae luctus ligula. Nunc
-                consequat eu justo a efficitur. Vivamus eu luctus urna, sit amet
-                aliquam ligula. Nulla euismod purus quis eros volutpat sollicitudin.
-                Cras consequat convallis mi non vehicula.
-            </p>
+
+
         </section>
     </div>
 
-    <script src=" ../vertical-responsive-menu.js">
-    </script>
+    <script src="../vertical-responsive-menu.js"></script>
 </body>
 
 </html>

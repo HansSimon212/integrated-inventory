@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>LEI Inventory Manager</title>
+  <title>Inventory Manager</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -20,7 +20,8 @@
     <button type="button" id="toggleMenu" class="toggle_menu">
       <i class="fa fa-bars"></i>
     </button>
-    <h1>LEI Inventory Manager</h1>
+    <img src="imgs/lei_logo_resize.png" alt="LEI logo image file not found." id="mainLogo">
+    <h1 id="mainTitle">Inventory Manager</h1>
 
   </header>
 
@@ -28,7 +29,7 @@
     <ul id="js-menu" class="menu">
 
       <li class="menu--item">
-        <a href="#" class="menu--link" title="Home">
+        <a href="index.html" class="menu--link" title="Home">
           <i class="menu--icon fa fa-fw fa-home"></i>
           <span class="menu--label">Home</span>
         </a>
@@ -62,7 +63,23 @@
         </a>
       </li>
 
+      <li class="menu--item">
+        <a href="html/get-info.html" class="menu--link" title="Get Item Info">
+          <i class="menu--icon fa fa-fw fa-info"></i>
+          <span class="menu--label">Get Item Info</span>
+        </a>
+
+      </li>
+      <li class="menu--item">
+        <a href="html/update-weight.html" class="menu--link" title="Update Item Weight">
+          <i class="menu--icon fa fa-fw fa-anchor"></i>
+          <span class="menu--label">Update Item Weight</span>
+        </a>
+      </li>
+
       <!--
+          MENU ITEM WITH SUBMENU: 
+
            <li class="menu--item menu--item__has_sub_menu">
           <label class="menu--link" title="Move Item">
             <i class="menu--icon fa fa-fw fa-qrcode"></i>
@@ -86,6 +103,7 @@
             </li>
           </ul>
         </li>
+
         -->
 
       <button id="collapse_menu" class="collapse_menu">
@@ -96,34 +114,8 @@
 
   <div class="wrapper">
     <section id="main_content">
-      <h1 class="main_content_title">Home</h1>
+      <h2 class="main_content_title">Home</h2>
       <hr>
-
-      <h2 class="nav_grid_title">Inventory Item Actions</h2>
-      <div class="nav_grid_container nav_grid_container_1">
-        <div class="grid_item grid_item_1">
-          <i class="fa fa-home"></i>
-          <br>
-          Find Item
-        </div>
-        <div class="grid_item grid_item_2">
-          <i class="fa fa-home"></i>
-          <br>
-          Add Item
-        </div>
-        <div class="grid_item grid_item_3">
-          <i class="fa fa-home"></i>
-          <br>
-          Remove Item
-        </div>
-        <div class="grid_item grid_item_4">
-          <i class="fa fa-home"></i>
-          <br>
-          Move Item
-        </div>
-
-      </div>
-
     </section>
   </div>
 
