@@ -20,12 +20,18 @@ captureButton.addEventListener("click", () => {
     var newImg = document.createElement("img"),
       url = URL.createObjectURL(blob);
 
+    newImg.id = "captured_img";
+
     newImg.onload = function () {
       URL.revokeObjectURL(url);
     };
 
     newImg.src = url;
+
+    var img2 = document.createElement("img");
+    img2.src = "blob:null/4603458a-e748-4f1f-ac36-fa2942a96f04";
     main_content.appendChild(newImg);
+    main_content.appendChild(img2);
   });
 });
 
