@@ -15,6 +15,18 @@ captureButton.addEventListener("click", () => {
   canvas.style.display = "block";
   // Draw the video frame to the canvas.
   context.drawImage(player, 0, 0, canvas.width, canvas.height);
+  canvas.toBlob(function (blob) {
+    const main_content = document.getElementById("main_content");
+    var newImg = document.createElement("img"),
+      url = URL.createObjectURL(blob);
+
+    newImg.onload = function () {
+      URL.revokeObjectURL(url);
+    };
+
+    newImg.src = url;
+    main_content.appendChild(newImg);
+  });
 });
 
 // Attach the video stream to the video element and autoplay.
