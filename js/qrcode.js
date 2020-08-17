@@ -10,6 +10,7 @@ const btnScanQR = document.getElementById("btn-scan-qr");
 
 let scanning = false;
 
+// Stops video stream, shows QR Code scan result and hides canvas
 qrObj.callback = (res) => {
   if (res) {
     outputData.innerText = res;
@@ -25,6 +26,7 @@ qrObj.callback = (res) => {
   }
 };
 
+// Starts the video stream, draws result on canvas every tick
 btnScanQR.onclick = () => {
   navigator.mediaDevices
     .getUserMedia({ video: { facingMode: "environment" } })
@@ -41,6 +43,7 @@ btnScanQR.onclick = () => {
     });
 };
 
+// Draws result on canvas element every tick
 function tick() {
   canvasElement.height = video.videoHeight;
   canvasElement.width = video.videoWidth;
@@ -49,6 +52,7 @@ function tick() {
   scanning && requestAnimationFrame(tick);
 }
 
+// Attempts to scan QR Code
 function scan() {
   try {
     qrObj.decode();
