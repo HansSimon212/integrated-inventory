@@ -116,16 +116,31 @@
             <i>Add a new item to the inventory</i>
             <hr>
 
-            <video id="player" controls autoplay width="300px"></video>
+            <!-- <video id="player" controls autoplay width="300px"></video>
             <button id="capture">Capture QR Code</button>
-            <canvas id="canvas" width=300 height=227.5></canvas>
+            <canvas id="canvas" width=300 height=227.5></canvas> -->
+            <div style="width: 300px; height: 300px; border: thin solid black;" id="reader"></div>
         </section>
     </div>
 
-    <script src="../js/capture.js"></script>
     <script src="../vertical-responsive-menu.js"></script>
     <script src="../qr-scanner/minified/html5-qrcode.min.js"></script>
-    <script src="../js/index.js"></script>
+    <script>
+        function onScanSuccess(qrCodeMessage) {
+            console.log(qrCodeMessage);
+            html5QrcodeScanner.clear();
+        }
+
+        // displays error message on scan failure/error
+        function onScanError(errorMessage) {
+            console.log(errorMessage);
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 });
+
+        html5QrcodeScanner.render(onScanSuccess, onScanError);
+    </script>
 </body>
 
 </html>
