@@ -2,19 +2,10 @@
   "name": "vertical-responsive-menu",
   "version": "1.0.2",
   "homepage": "https://github.com/cbfranca/vertical-responsive-menu",
-  "authors": [
-    "Cleidson França",
-    "Marcelo Ribeiro"
-  ],
+  "authors": ["Cleidson França", "Marcelo Ribeiro"],
   "description": "Vertical responsive menu",
-  "moduleType": [
-    "node"
-  ],
-  "keywords": [
-    "vertical",
-    "responsive",
-    "menu"
-  ],
+  "moduleType": ["node"],
+  "keywords": ["vertical", "responsive", "menu"],
   "license": "MIT",
   "dependencies": {
     "fontawesome": "~4.3.0",
