@@ -98,6 +98,8 @@ header * {
   margin: auto;
   width: calc(100% - 20px);
   max-width: 400px;
+  border: medium solid black;
+  border-radius: 10px;
 }
 
 #btn-scan-qr {
@@ -106,9 +108,12 @@ header * {
 
 #btn-scan-qr img {
   height: 10em;
-  padding: 15px;
-  margin: 15px;
+  padding: 5px;
+  border: medium solid black;
+  margin: 0px;
   background: white;
+  box-shadow: 3px 3px 3px 3px;
+  border-radius: 10px;
 }
 
 #qr-result {
@@ -119,39 +124,25 @@ header * {
   background-color: white;
 }
 
-/* #qr-input-label {
-  color: white;
-  font-size: 16px;
-  background-color: #62a845;
-  border-radius: 15px;
-  padding: 15px;
-  display: inline-block;
-} */
-
-/* #player {
-  border: thick solid #62a845;
+#scanned_item_info {
+  text-align: left;
+  justify-content: left;
+  margin-bottom: 20px;
 }
 
-#canvas {
-  display: none;
-}
-
-#capture {
-  color: white;
-  font-size: 16px;
-  padding: 15px;
-  background-color: #62a845;
-  border: thin solid black;
-  border-radius: 15px;
-  width: 175px;
-  margin: 15px;
-} */
-
-/* #qr-reader {
-  margin: auto;
-  width: 300px;
+#scanned_item_info_table {
+  width: 100%;
   border: medium solid black;
-} */
+  border-radius: 20px;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+#scanned_item_info_table th,
+#scanned_item_info_table td {
+  padding: 15px;
+  border: thin solid black;
+}
 
 /* Small devices (tablets)
 ==========================*/
