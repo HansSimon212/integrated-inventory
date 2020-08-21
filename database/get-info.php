@@ -39,8 +39,8 @@ function returnErrorToSender($errMsg)
     returnToSender($errMsg, true);
 }
 
-// connectToDB(): String -> PDO
-// Creates a PDO (PHP Data Object) connection to database
+// connectToDB(): Void -> Void
+// Attempts to establish connection to databse
 function connectToDB()
 {
     // Variables required for MySQL connection
