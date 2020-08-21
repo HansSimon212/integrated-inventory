@@ -32,7 +32,7 @@ require("../assets/include/get-session-vars.php");
 
             <?php
             // switch on scanning status
-            if ($status == 'scanning' || !$status || $status == '') {
+            if ($status == '') {
                 require("../assets/include/scanning.php");
             } elseif ($status == 'info') {
                 require("../assets/include/info.php");
