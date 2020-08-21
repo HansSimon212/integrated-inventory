@@ -37,6 +37,26 @@ function returnToSender($status, $errMsg, $resetSessionVars)
     exit();
 }
 
+// returnToSenderSuccess: String Boolean -> Void 
+// Returns to calling script with success message
+function returnToSenderSuccess($successMsg)
+{
+    // gets global reference
+    global $destination, $con;
+    // closes database conn. if conn. has been attempted and succeeded
+    isset($con) and $con and $con->close();
+    // clears all session variables if requested
+    resetSessionVars();
+
+    $_SESSION['err_msg'] = '';
+    $_SESSION['status'] = 'success';
+    $_SESSION['success_msg'] = $successMsg;
+
+    // returns to calling script
+    header($destination);
+    exit();
+}
+
 // connectToDB(): Void -> Void
 // Attempts to establish connection to databse
 function connectToDB()
@@ -79,12 +99,12 @@ switch ($item_type) {
     case "R":
         $sql = "UPDATE 29_RAW_INVENTORY SET location=" . $new_item_location . " WHERE uid=" . $item_uid . "";
         queryDatabase($sql);
-        returnToSender('success', '', false);
+        returnToSenderSuccess('Successfully moved<br>' . $info_array['name'] . '<br>to<br>Rack ' . $new_item_location);
         break;
     case "D":
         $sql = "UPDATE 29_Dispersion_Inventory SET location=" . $new_item_location . " WHERE uid=" . $item_uid . "";
         queryDatabase($sql);
-        returnToSender('success', '', false);
+        returnToSenderSuccess('Successfully moved<br>' . $info_array['name'] . '<br>to<br>Rack ' . $new_item_location);
         break;
     default:
         returnToSender('', "Unrecognized item type: " . $item_type, true);

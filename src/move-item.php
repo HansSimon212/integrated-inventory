@@ -15,6 +15,21 @@ function getPassedArray()
     }
 }
 
+// returnItemType(): Void -> String
+// Returns the item type of the scanned item
+function returnItemType()
+{
+    global $rm_info, $dispersion_info;
+
+    if (!empty($rm_info)) {
+        return 'Raw Material';
+    } else if (!empty($dispersion_info)) {
+        return 'Dispersion';
+    } else {
+        return 'Unrecognized';
+    }
+}
+
 // session_abort()
 session_start();
 $_SESSION['info_array'] = getPassedArray();
