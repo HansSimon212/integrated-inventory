@@ -1,6 +1,23 @@
 <?php
 // Retrieves all $_SESSION vars (whether initialized or not)
 require("../assets/include/get-session-vars.php");
+
+// getPassedArray(): Void -> Array
+// Returns which of {$rm_info, $dispersion_info} is nonempty
+function getPassedArray()
+{
+    global $rm_info, $dispersion_info;
+
+    if (!empty($rm_info)) {
+        return $rm_info;
+    } else {
+        return $dispersion_info;
+    }
+}
+
+// session_abort()
+session_start();
+$_SESSION['info_array'] = getPassedArray();
 ?>
 
 <!DOCTYPE html>

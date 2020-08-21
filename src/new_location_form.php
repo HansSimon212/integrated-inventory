@@ -10,14 +10,28 @@
 <script>
     // Sets up $_POST form for changing location
     const sender = document.getElementById('sender');
-    const infoArray = document.getElementById('info_array');
+    // const infoArray = document.getElementById('info_array');
     const itemType = document.getElementById('item_type');
     const newItemLocation = document.getElementById('new_item_location');
 
-    sender.innerText = document.getElementById('fileName');
-    infoArray.innerText = '<?php echo serialize($passed_array); ?>';
+    sender.value = document.getElementById('fileName').getAttribute('content');
     <?php
-    $item_type = $passed_array['name'][strlen($passed_array['name']) - 1];
+    // getItemTypeLetter(): Void -> String
+    // Returns the letter representing the type of item the user scanned
+    function getItemTypeLetter()
+    {
+        global $rm_info, $dispersion_info;
+
+        if (!empty($rm_info)) {
+            return 'R';
+        } else if (!empty($dispersion_info)) {
+            return 'D';
+        } else {
+            return 'D';
+        }
+    }
+    $item_type = getItemTypeLetter();
     ?>
-    itemType.innerText = '<?php echo $item_type ?>';
+
+    itemType.value = '<?php echo $item_type ?>';
 </script>

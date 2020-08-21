@@ -28,18 +28,7 @@
 
     <?php
 
-    // getPassedArray(): Void -> Array
-    // Returns which of {$rm_info, $dispersion_info} is nonempty
-    function getPassedArray()
-    {
-        global $rm_info, $dispersion_info;
-
-        if (!empty($rm_info)) {
-            return $rm_info;
-        } else {
-            return $dispersion_info;
-        }
-    }
+ 
 
     // returnItemType(): Void -> String
     // Returns the item type of the scanned item
