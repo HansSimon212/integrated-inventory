@@ -57,13 +57,13 @@
     }
 
     $passed_array = getPassedArray();
-    $item_type = returnItemType();
+    $item_info_type = returnItemType();
     $item_name = $passed_array['name'];
     $item_uid = $passed_array['uid'];
     $item_location = $passed_array['location'];
     ?>
 
-    itemInfoType.innerText = '<?php echo $item_type ?>';
+    itemInfoType.innerText = '<?php echo $item_info_type ?>';
     itemInfoName.innerText = '<?php echo $item_name ?>';
     itemInfoUID.innerText = '<?php echo $item_uid ?>';
     itemInfoLocation.innerText = '<?php echo $item_location ?>';
