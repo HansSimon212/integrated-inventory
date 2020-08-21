@@ -40,9 +40,6 @@ require("../assets/include/get-session-vars.php");
 
                 <h3 id="new_location_form_title">New Location:</h3>
                 <form method="post" action="../database/move-item.php" id="new_location_form">
-                    <input type="number" name="item_uid" id="item_uid" hidden>
-                    <input type="text" name="item_name" id="item_name" hidden>
-                    <input type="number" name="item_location" id="item_location" hidden>
                     <input type="number" name="new_item_location" id="new_item_location">
                     <input type="text" name="sender" id="sender" hidden>
                     <input type="submit" value="Submit">
