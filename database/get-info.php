@@ -31,6 +31,14 @@ function returnToSender($errMsg, $resetSessionVars)
     exit();
 }
 
+// returnErrorToSender: String -> Void
+// Returns the given error message to calling script. If database connection
+// is active/open, closes it. Resets all session vars.
+function returnErrorToSender($errMsg)
+{
+    returnToSender($errMsg, true);
+}
+
 // connectToDB(): String -> PDO
 // Creates a PDO (PHP Data Object) connection to database
 function connectToDB()
@@ -47,7 +55,7 @@ function connectToDB()
 
     // Returns with an error message if error occurs
     if (mysqli_connect_errno()) {
-        returnToSender($con->error, true);
+        returnErrorToSender($con->error);
     }
 }
 
@@ -62,17 +70,17 @@ function queryDatabase($sql)
 
     if (!$result) {
         // query failed
-        returnToSender('Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error, true);
+        returnErrorToSender('Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error);
     }
     if ($result->num_rows < 1) {
         // return of query was empty
-        returnToSender('No matching entry in database found for uid: ' . $item_uid, true);
+        returnErrorToSender('No matching entry in database found for uid: ' . $item_uid);
     }
     return mysqli_fetch_array($result);
 }
 
 // Returns an error if item_uid is poorly formed
-(strlen($item_uid) < 2) and returnToSender('Poorly formed uid: ' . $item_uid, true);
+(strlen($item_uid) < 2) and returnErrorToSender('Poorly formed uid: ' . $item_uid);
 
 // splits uid into number and letter representing item type
 $uid_num = substr($item_uid, 0, -1);
@@ -80,24 +88,20 @@ $casted_uid_num = intval($item_uid);
 $item_type = $item_uid[strlen($item_uid) - 1];
 
 // Returns an error if item_uid doesn't contain valid number
-($casted_uid_num <= 0) and returnToSender('Poorly formed uid: ' . $item_uid, true);
+($casted_uid_num <= 0) and returnErrorToSender('Poorly formed uid: ' . $item_uid);
 
 // Attempts to connect to database
 connectToDB();
 
+// Builds query based on item type (last character in item_uid)
+switch ($item_type) {
+    case "R":
+        break;
+    case "D":
+        break;
+    default:
+        returnErrorToSender("Unrecognized item type: " . $item_type);
+}
+
 // Builds query and queries the connected database
 $sql = "SELECT * FROM 29_RAW_INVENTORY WHERE uid=" . $casted_uid_num . "";
-
-$_SESSION['status'] = 'info';
-$_SESSION['sender'] = $sender;
-$_SESSION['err_msg'] = '';
-$_SESSION['item_uid'] = $item_uid;
-$_SESSION['item_rm'] = '';
-$_SESSION['item_lot'] = '';
-$_SESSION['item_name'] = $item_info['name'];
-$_SESSION['item_exp_date'] = '';
-$_SESSION['item_location'] = $item_info['location'];
-$_SESSION['item_quantity_kg'] = '';
-$_SESSION['item_container'] = '';
-$_SESSION['item_notes'] = '';
-returnToSender('', false);
