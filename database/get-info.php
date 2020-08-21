@@ -96,12 +96,19 @@ connectToDB();
 // Builds query based on item type (last character in item_uid)
 switch ($item_type) {
     case "R":
+        $sql = "SELECT * FROM 29_RAW_INVENTORY WHERE uid=" . $casted_uid_num . "";
+        $_SESSION['status'] = 'info';
+        $_SESSION['rm_info'] = queryDatabase($sql);
+        returnToSender('', false);
         break;
     case "D":
+        $sql = "SELECT * FROM 29_Dispersion_Inventory WHERE uid=" . $casted_uid_num . "";
+        $_SESSION['status'] = 'info';
+        $_SESSION['dispersion_info'] = queryDatabase($sql);
+        returnToSender('', false);
         break;
     default:
         returnErrorToSender("Unrecognized item type: " . $item_type);
 }
 
 // Builds query and queries the connected database
-$sql = "SELECT * FROM 29_RAW_INVENTORY WHERE uid=" . $casted_uid_num . "";
