@@ -39,30 +39,30 @@ $item_uid = $_POST['item_uid']; // form: '{Number}' + {'B' | 'R' | 'D'}
 $sender = $_POST['sender']; // address this script was invoked from
 $destination = "Location: ../../src/" . $sender;
 
-// returnToSender: String Boolean -> Void
-// Sets error message session variable and returns to calling script. If
-// database connection is active/open, closes it.
-function returnToSender($errMsg, $resetSessionVars)
+// returnToSender: String String String Array Array -> Void
+// Sets session variables and returns to calling script. If
+// database connection is active/open, closes it. Returns given status, error message,
+// success message, rm info array, dispersion info array.
+function returnToSender($status, $errMsg, $successMsg, $rm_info, $dispersion_info)
 {
     // gets global reference
     global $destination, $con;
-    // closes database conn. if conn. has been attempted and succeeded
-    isset($con) and $con and $con->close();
-    // clears all session variables if requested
-    $resetSessionVars and $_SESSION = [];
-    // sets error message before return 
+
+    // database connection has been attempted and succeeded
+    if (isset($con) && $con) {
+        $con->close();
+    }
+
+    $_SESSION = [];
+    $_SESSION['status'] = $status;
     $_SESSION['err_msg'] = $errMsg;
+    $_SESSION['success_msg'] = $successMsg;
+    $_SESSION['rm_info'] = $rm_info;
+    $_SESSION['dispersion_info'] = $dispersion_info;
+
     // returns to calling script
     header($destination);
     exit();
-}
-
-// returnErrorToSender: String -> Void
-// Returns the given error message to calling script. If database connection
-// is active/open, closes it. Resets all session vars.
-function returnErrorToSender($errMsg)
-{
-    returnToSender($errMsg, true);
 }
 
 // connectToDB(): Void -> Void
@@ -81,7 +81,7 @@ function connectToDB()
 
     // Returns with an error message if error occurs
     if (mysqli_connect_errno()) {
-        returnErrorToSender($con->error);
+        returnToSender('', 'Connection to database failed.<br>Error: ' . $con->error, '', array(), array());
     }
 }
 
@@ -96,18 +96,21 @@ function queryDatabase($sql)
 
     if (!$result) {
         // query failed
-        returnErrorToSender('Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error);
+        returnToSender('', 'Database query failed: <br>uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error, '', array(), array());
     }
     if ($result->num_rows < 1) {
         // return of query was empty
-        returnErrorToSender('No matching entry in database found for uid: ' . $item_uid);
+        returnToSender('', 'No matching entry in database found for uid: ' . $item_uid, '', array(), array());
     }
+
     // returns the return row
     return mysqli_fetch_array($result);
 }
 
 // Returns an error if item_uid is poorly formed
-(strlen($item_uid) < 2) and returnErrorToSender('Poorly formed uid: ' . $item_uid);
+if (strlen($item_uid) < 2) {
+    returnToSender('', 'Poorly formed uid: ' . $item_uid, '', array(), array());
+}
 
 // splits uid into number and letter representing item type
 $uid_num = substr($item_uid, 0, -1);
@@ -115,7 +118,9 @@ $casted_uid_num = intval($item_uid);
 $item_type = $item_uid[strlen($item_uid) - 1];
 
 // Returns an error if item_uid doesn't contain valid number
-($casted_uid_num <= 0) and returnErrorToSender('Poorly formed uid: ' . $item_uid);
+if ($casted_uid_num <= 0) {
+    returnToSender('', 'Poorly formed uid: ' . $item_uid, '', array(), array());
+}
 
 // Attempts to connect to database
 connectToDB();
@@ -124,18 +129,12 @@ connectToDB();
 switch ($item_type) {
     case "R":
         $sql = "SELECT * FROM 29_RAW_INVENTORY WHERE uid=" . $casted_uid_num . "";
-        $_SESSION['status'] = 'info';
-        $_SESSION['rm_info'] = queryDatabase($sql);
-        returnToSender('', false);
+        returnToSender('info', '', '', queryDatabase($sql), array());
         break;
     case "D":
         $sql = "SELECT * FROM 29_Dispersion_Inventory WHERE uid=" . $casted_uid_num . "";
-        $_SESSION['status'] = 'info';
-        $_SESSION['dispersion_info'] = queryDatabase($sql);
-        returnToSender('', false);
+        returnToSender('info', '', '', array(), queryDatabase($sql));
         break;
     default:
-        returnErrorToSender("Unrecognized item type: " . $item_type);
+        returnToSender('', 'Unrecognized item type: ' . $item_type, '', array(), array());
 }
-
-// Builds query and queries the connected database

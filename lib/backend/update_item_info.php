@@ -8,7 +8,6 @@ session_start();
 
 $_POST: 
     > 'sender'      : relative path (relative to frontend/index.php) of the calling script
-    > 'item_type_letter'   : scanned item's type (one of 'R', 'D', .... more to be added)
     > 'new_item_location' : new location for the scanned/looked up item
     > 'new_item_quantity_kg' : new quantity for the scanned/looked up item
     
@@ -39,6 +38,8 @@ $_SESSION:
 */
 
 $sender = $_POST['sender']; // address this script was invoked from
+
+// one of these is empty, one contains information about an item
 $rm_info = $_SESSION['rm_info'];
 $dispersion_info = $_SESSION['dispersion_info'];
 
@@ -64,14 +65,6 @@ $item_uid = $passed_array['uid'];
 
 $destination = "Location: ../../src/" . $sender; // calling script
 
-// resetSessionVars: Void -> Void
-// Resets all session variables and starts a new session (creates a clean slate)
-function resetSessionVars()
-{
-    session_destroy();
-    session_start();
-}
-
 // returnToSender: String String String Array Array -> Void
 // Sets session variables and returns to calling script. If
 // database connection is active/open, closes it. Returns given status, error message,
@@ -83,6 +76,7 @@ function returnToSender($status, $errMsg, $successMsg, $rm_info, $dispersion_inf
     // closes database conn. if conn. has been attempted and succeeded
     isset($con) and $con and $con->close();
 
+    $_SESSION = [];
     $_SESSION['status'] = $status;
     $_SESSION['err_msg'] = $errMsg;
     $_SESSION['success_msg'] = $successMsg;
@@ -94,27 +88,12 @@ function returnToSender($status, $errMsg, $successMsg, $rm_info, $dispersion_inf
     exit();
 }
 
-// returnToSenderWithData: String String -> Void
-// Returns to calling script with error message.
-// Sets data array to the array passed to this script (one of rm_info, dispersion_info)
-function returnToSenderWithData($errMsg)
-{
-    global $item_type_letter, $passed_array;
-
-    if ($item_type_letter == 'R') {
-        returnToSender('info', $errMsg, '', $passed_array, array());
-    } else if ($item_type_letter == 'D') {
-        returnToSender('info', $errMsg, '', array(), $passed_array);
-    } else {
-        resetSessionVars();
-        returnToSender('', 'Unrecognized item type: ' . $item_type_letter, '', array(), array());
-    }
-}
-
 // connectToDB(): Void -> Void
 // Attempts to establish connection to databse
 function connectToDB()
 {
+    global $rm_info, $dispersion_info;
+
     // Variables required for MySQL connection
     $server = "208.109.166.118";
     $username = 'danielwilczak';
@@ -127,7 +106,7 @@ function connectToDB()
 
     // Returns with an error message if error occurs
     if (mysqli_connect_errno()) {
-        returnToSenderWithData($con->error);
+        returnToSender('info', 'Connection to database failed.<br>Error: ' . $con->error, '', $rm_info, $dispersion_info);
     }
 }
 
@@ -136,45 +115,84 @@ function connectToDB()
 // was successful and return is non-empty
 function queryDatabase($sql)
 {
-    global $con, $item_uid, $passed_array;
+    global $con, $rm_info, $dispersion_info, $item_uid;
 
     $result = $con->query($sql);
 
-    if (!$result || mysqli_connect_errno()) {
-        returnToSenderWithData('Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error);
+    if (!$result) {
+        returnToSender('info', 'Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql, '', $rm_info, $dispersion_info);
     }
+
+    if (mysqli_connect_errno()) {
+        returnToSender('info', 'Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error, '', $rm_info, $dispersion_info);
+    }
+    return mysqli_fetch_array($result);
 }
 
 // Error checking user inputted new item location, new item quantity
 // $new_item_location
 if ($new_item_location <= 0) {
-    returnToSenderWithData('Invalid item location: ' . $new_item_location . '<br>Please input
-    a positive number with no decimals.');
+    returnToSender('info', 'Invalid item location: ' . $new_item_location . '<br>Please input
+    a positive number with no decimals.', '', $rm_info, $dispersion_info);
 }
 
 // $new_item_quantity_kg
 if ($new_item_quantity_kg <= 0) {
-    returnToSenderWithData('Invalid item quantity: ' . $new_item_quantity_kg . '<br>Please input
-    a positive number.');
+    returnToSender('info', 'Invalid item quantity: ' . $new_item_quantity_kg . '<br>Please input
+    a positive number.', '', $rm_info, $dispersion_info);
 }
-
 
 // Attempts to connect to database
 connectToDB();
+
+// gets previous location and weight
+$previous_item_location = $passed_array['location'];
+$previous_item_quantity_kg = $passed_array['quantity_Kg'];
+
+// if neither location nor quantity is going to change, returns with error
+if ($previous_item_location == $new_item_location && $previous_item_quantity_kg == $new_item_quantity_kg) {
+    returnToSender('info', 'Item already has<br>location: ' . $new_item_location . " quantity: " . $new_item_quantity_kg);
+}
+
+// composeSuccessMessage(): String String -> String
+// Returns the message to be returned to the calling page on success
+function composeSuccessMessage($prev_loc, $prev_quant, $new_loc, $new_quant)
+{
+    global $passed_array;
+
+    $success_msg = '';
+    $diff_loc = ($prev_loc == $new_loc);
+    $diff_quant = ($prev_quant == $new_quant);
+
+    // INVARIANT: either location or quantity was updated
+    if ($diff_loc && !$diff_quant) {
+        return 'Successfully moved<br>' . $passed_array['name'] . '<br>from Rack ' . $prev_loc . 'to Rack ' . $new_loc;
+    } else if ($diff_quant && !$diff_loc) {
+        return 'Successfully changed quantity of<br>' . $passed_array['name'] . '<br>from ' . $prev_quant . 'to ' . $new_quant;
+    } else {
+        return 'Successfully moved<br>' . $passed_array['name'] . '<br>from Rack ' . $prev_loc . 'to Rack ' . $new_loc . '<br>and changed quantity from ' . $prev_quant . ' to ' . $new_quant;
+    }
+}
 
 // Builds query based on item type (last character in item_uid)
 switch ($item_type_letter) {
     case "R":
         $sql = "UPDATE 29_RAW_INVENTORY SET location=" . $new_item_location . ",
         quantity_Kg=" . $new_item_quantity_kg . " WHERE uid=" . $item_uid . "";
+
         queryDatabase($sql);
-        returnToSender('success', '', 'Successfully moved<br>' . $passed_array['name'] . '<br>to<br>Rack ' . $new_item_location, array(), array());
+
+        // We know the query was successful
+        returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
         break;
     case "D":
         $sql = "UPDATE 29_Dispersion_Inventory SET location=" . $new_item_location . ",
         quantity_Kg=" . $new_item_quantity_kg . " WHERE uid=" . $item_uid . "";
+
         queryDatabase($sql);
-        returnToSender('success', '', 'Successfully moved<br>' . $passed_array['name'] . '<br>to<br>Rack ' . $new_item_location, array(), array());
+        // We know the query was successful
+
+        returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
         break;
     default:
         resetSessionVars();

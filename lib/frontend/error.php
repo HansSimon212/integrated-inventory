@@ -31,8 +31,9 @@
         font-size: 16px;
         font-weight: 800;
         text-align: center;
-        width: auto;
+        width: 100%;
         padding: 15px;
+        text-align: center;
     }
 </style>
 

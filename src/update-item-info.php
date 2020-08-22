@@ -39,6 +39,7 @@ require("../lib/get-session-vars.php");
                 require("../lib/frontend/success.php");
             } else {
                 $err_msg = 'Invalid status "' . $status . '"';
+                $_SESSION = [];
             }
             require("../lib/frontend/error.php");
             ?>
