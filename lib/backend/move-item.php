@@ -1,13 +1,49 @@
 <?php
 session_start();
 
+/*
+====================================================================================================
+                                        EXPECTED VARIABLES
+====================================================================================================
+
+$_POST: 
+    > 'sender'      : relative path (relative to frontend/index.php) of the calling script
+    > 'item_type'   : scanned item's type (one of 'R', 'D', .... more to be added)
+    > 'new_item_location' : new location for the scanned item
+    
+$_SESSION:
+    > 'info_array'  : array of retrieved information about the scanned item
+
+====================================================================================================
+                                    VARIABLES SET BEFORE RETURN
+====================================================================================================
+
+$_SESSION:
+    > 'status' :String             
+    : what status the of the calling page should be (one of    '',    'info')
+    
+    > 'err_msg' :String 
+    : any error message to be used in calling script
+    
+    > 'success_msg' :String        
+    : any success message to be used in calling script 
+    
+    > 'rm_info' :String             
+    : retrieved information about a raw material (serialized Array)
+    
+    > 'dispersion_info' :String
+    : retrieved information about a dispersion (serialized Array)
+
+    ================================================================================================
+*/
+
 $sender = $_POST['sender']; // address this script was invoked from
 $info_array = $_SESSION['info_array'];
 $item_type = $_POST['item_type'];
 $new_item_location = $_POST['new_item_location'];
 $item_uid = $info_array['uid'];
 
-$destination = "Location: ../src/" . $sender; // calling script
+$destination = "Location: ../frontend/" . $sender; // calling script
 
 // resetSessionVars: Void -> Void
 // Resets all session variables and starts a new session (creates a clean slate)

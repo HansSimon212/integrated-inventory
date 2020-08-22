@@ -1,3 +1,28 @@
+<!-- Displays QR code scanner, retrieves item information on scan success 
+
+====================================================================================================
+EXPECTED VARIABLES
+====================================================================================================
+
+> $status :String
+: what status the of the calling page should be (one of '', 'info')
+
+> $err_msg :String
+: any error message to be used in calling script
+
+> $success_msg :String
+: any success message to be used in calling script
+
+> $rm_info :String
+: retrieved information about a raw material (serialized Array)
+
+> $dispersion_info :String
+: retrieved information about a dispersion (serialized Array)
+
+================================================================================================
+
+-->
+
 <div id="container">
     <h3>Scan an Item:</h3>
     <a id="btn-scan-qr">
@@ -6,7 +31,7 @@
     <canvas hidden="" id="qr-canvas"></canvas>
 </div>
 
-<form method="post" action="../database/get-info.php" id="get_info_form" hidden>
+<form method="post" action="../backend/get-item-info.php" id="get_info_form" hidden>
     <input type="text" name="item_uid" id="item_uid" hidden>
     <input type="text" name="sender" id="sender" hidden>
 </form>

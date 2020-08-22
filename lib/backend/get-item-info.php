@@ -1,9 +1,41 @@
 <?php
 session_start();
 
+/*
+====================================================================================================
+                                        EXPECTED VARIABLES
+====================================================================================================
+
+$_POST: 
+    > 'item_uid'    : id of an item scanned by the user. If formed correctly
+    > 'sender'      : the relative path (relative to frontend/index.php) of the calling script
+
+====================================================================================================
+                                    VARIABLES SET BEFORE RETURN
+====================================================================================================
+
+$_SESSION:
+    > 'status' :String             
+    : what status the of the calling page should be (one of    '',    'info')
+    
+    > 'err_msg' :String 
+    : any error message to be used in calling script
+    
+    > 'success_msg' :String        
+    : any success message to be used in calling script 
+    
+    > 'rm_info' :String             
+    : retrieved information about a raw material (serialized Array)
+    
+    > 'dispersion_info' :String
+    : retrieved information about a dispersion (serialized Array)
+
+    ================================================================================================
+*/
+
 $item_uid = $_POST['item_uid']; // form: '{Number}' + {'B' | 'R' | 'D'}
 $sender = $_POST['sender']; // address this script was invoked from
-$destination = "Location: ../src/" . $sender;
+$destination = "Location: ../frontend/" . $sender;
 
 // resetSessionVars: Void -> Void
 // Resets all session variables and starts a new session (creates a clean slate)

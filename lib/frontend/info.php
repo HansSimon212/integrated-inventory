@@ -1,3 +1,27 @@
+<!-- Displays information about a scanned item 
+
+====================================================================================================
+                                        EXPECTED VARIABLES
+====================================================================================================
+
+    > $status :String             
+    : what status the of the calling page should be (one of    '',    'info')
+    
+    > $err_msg :String 
+    : any error message to be used in calling script
+    
+    > $success_msg :String        
+    : any success message to be used in calling script 
+    
+    > $rm_info :String             
+    : retrieved information about a raw material (serialized Array)
+    
+    > $dispersion_info :String
+    : retrieved information about a dispersion (serialized Array)
+    
+================================================================================================
+
+-->
 <div id="scanned_item_info">
     <h3>Scanned Item Info:</h3>
     <table id="scanned_item_info_table">
