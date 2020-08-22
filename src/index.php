@@ -1,8 +1,3 @@
-<?php
-// Retrieves all $_SESSION vars (whether initialized or not)
-require("../assets/include/get-session-vars.php");
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -13,14 +8,14 @@ require("../assets/include/get-session-vars.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
     <?php
-    require("../assets/include/import.html");
+    require("../lib/frontend/import.html");
     ?>
 </head>
 
 <body>
     <?php
-    require("../assets/include/header.html");
-    require("../assets/include/vrm.html");
+    require("../lib/frontend/header.html");
+    require("../lib/frontend/vrm.html");
     ?>
 
     <div class="wrapper">
@@ -28,7 +23,6 @@ require("../assets/include/get-session-vars.php");
             <h2 class="main_content_title">Home</h2>
             <hr>
             <?php
-            require("../assets/include/error.php");
             ?>
         </section>
     </div>

@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Inventory Manager</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
     <?php
-    require("../assets/include/import.html");
+    require("../lib/frontend/import.html");
     ?>
 </head>
 
 <body>
-<?php
-require("../assets/include/header.html");
-require("../assets/include/vrm.html");
-?>
+    <?php
+    require("../lib/frontend/header.html");
+    require("../lib/frontend/vrm.html");
+    ?>
 
-<div class="wrapper">
-    <section id="main_content">
-        <h2 class="main_content_title">Get Item Info</h2>
-        <i>Retrieve information about any scannable item</i>
-        <hr>
+    <div class="wrapper">
+        <section id="main_content">
+            <h2 class="main_content_title">Get Item Info</h2>
+            <i>Retrieve information about any scannable item</i>
+            <hr>
 
-        <?php
-        require("../assets/include/qrcode.html");
-        require("../assets/include/error.php");
-        ?>
-    </section>
-</div>
+            <?php
+
+            ?>
+        </section>
+    </div>
 
 
 </body>

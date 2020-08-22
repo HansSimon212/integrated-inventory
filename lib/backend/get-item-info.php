@@ -35,7 +35,7 @@ $_SESSION:
 
 $item_uid = $_POST['item_uid']; // form: '{Number}' + {'B' | 'R' | 'D'}
 $sender = $_POST['sender']; // address this script was invoked from
-$destination = "Location: ../frontend/" . $sender;
+$destination = "Location: ../../src/" . $sender;
 
 // resetSessionVars: Void -> Void
 // Resets all session variables and starts a new session (creates a clean slate)

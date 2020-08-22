@@ -1,6 +1,6 @@
 <?php
 // Retrieves all $_SESSION vars (whether initialized or not)
-require("../assets/include/get-session-vars.php");
+require("../lib/get-session-vars.php");
 
 // getPassedArray(): Void -> Array
 // Returns which of {$rm_info, $dispersion_info} is nonempty
@@ -46,14 +46,14 @@ $_SESSION['info_array'] = getPassedArray();
     <meta id="fileName" content="move-item.php">
 
     <?php
-    require("../assets/include/import.html");
+    require("../lib/frontend/import.html");
     ?>
 </head>
 
 <body>
     <?php
-    require("../assets/include/header.html");
-    require("../assets/include/vrm.html");
+    require("../lib/frontend/header.html");
+    require("../lib/frontend/vrm.html");
     ?>
 
     <div class="wrapper">
@@ -65,16 +65,16 @@ $_SESSION['info_array'] = getPassedArray();
             <?php
             // switch on scanning status
             if ($status == '') {
-                require("../assets/include/scanning.php");
+                require("../lib/frontend/scanning.php");
             } elseif ($status == 'info') {
-                require("../assets/include/info.php");
+                require("../lib/frontend/info.php");
                 require("new_location_form.php");
             } elseif ($status == 'success') {
-                require("../assets/include/success.php");
+                require("../lib/frontend/success.php");
             } else {
                 $err_msg = 'Invalid status "' . $status . '"';
             }
-            require("../assets/include/error.php");
+            require("../lib/frontend/error.php");
             ?>
         </section>
     </div>
