@@ -1,5 +1,7 @@
 <?php
 session_start();
+// Forcibly clears all session variables to ensure none exist.
+$_SESSION = [];
 
 /*
 ====================================================================================================
@@ -37,14 +39,6 @@ $item_uid = $_POST['item_uid']; // form: '{Number}' + {'B' | 'R' | 'D'}
 $sender = $_POST['sender']; // address this script was invoked from
 $destination = "Location: ../../src/" . $sender;
 
-// resetSessionVars: Void -> Void
-// Resets all session variables and starts a new session (creates a clean slate)
-function resetSessionVars()
-{
-    session_destroy();
-    session_start();
-}
-
 // returnToSender: String Boolean -> Void
 // Sets error message session variable and returns to calling script. If
 // database connection is active/open, closes it.
@@ -55,7 +49,7 @@ function returnToSender($errMsg, $resetSessionVars)
     // closes database conn. if conn. has been attempted and succeeded
     isset($con) and $con and $con->close();
     // clears all session variables if requested
-    $resetSessionVars and resetSessionVars();
+    $resetSessionVars and $_SESSION = [];
     // sets error message before return 
     $_SESSION['err_msg'] = $errMsg;
     // returns to calling script
@@ -108,6 +102,7 @@ function queryDatabase($sql)
         // return of query was empty
         returnErrorToSender('No matching entry in database found for uid: ' . $item_uid);
     }
+    // returns the return row
     return mysqli_fetch_array($result);
 }
 

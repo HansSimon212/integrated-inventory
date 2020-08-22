@@ -136,12 +136,63 @@ header * {
   border-radius: 20px;
   border-collapse: collapse;
   table-layout: auto;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
 #scanned_item_info_table th,
 #scanned_item_info_table td {
   padding: 15px;
   border: thin solid black;
+  margin: auto;
+}
+
+#update_info_form {
+  width: 100%;
+  margin: 0 auto;
+  align-content: center;
+  text-align: center;
+}
+
+#new_item_location_label {
+  padding-right: 41px;
+}
+
+#new_item_quantity_kg_label {
+  padding-right: 10px;
+}
+
+#update_info_form_btn {
+  display: inline-block;
+  width: 125px;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 5px 0;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.update_info_form_label,
+.update_info_form_input {
+  display: inline-block;
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 16px;
+}
+
+.update_info_form_label {
+  font-weight: 600;
+}
+
+.update_info_form_input {
+  padding: 3px;
+  font-weight: 400;
+  border-radius: 10px;
+  width: 125px;
+}
+
+.update_info_form_label + .update_info_form_input {
 }
 
 /* Small devices (tablets)

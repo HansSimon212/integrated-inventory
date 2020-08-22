@@ -19,5 +19,5 @@ $success_msg = (isset($_SESSION['success_msg']) ? $_SESSION['success_msg'] : '')
 $rm_info = (isset($_SESSION['rm_info']) ? $_SESSION['rm_info'] : array());
 $dispersion_info = (isset($_SESSION['dispersion_info']) ? $_SESSION['dispersion_info'] : array());
 
-// Unsets all items after they've been copied
-session_destroy();
+// clears all session variables
+$_SESSION = [];

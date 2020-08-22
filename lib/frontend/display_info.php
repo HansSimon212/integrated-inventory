@@ -55,14 +55,17 @@
 
         if (!empty($rm_info)) {
             return $rm_info;
-        } else {
+        } else if (!empty($dispersion_info)) {
             return $dispersion_info;
+        } else {
+            throw new ErrorException('Both rm_info and dispersion_info are empty');
         }
     }
 
-    // returnItemType(): Void -> String
-    // Returns the item type of the scanned item
-    function returnItemType()
+    // getFullItemType(): Void -> String
+    // Returns the full item type of the scanned/looked up item.
+    // This item type is displayed to the user for scanning/lookup verification
+    function getFullItemType()
     {
         global $rm_info, $dispersion_info;
 
@@ -86,12 +89,13 @@
         } else if (!empty($dispersion_info)) {
             return 'D';
         } else {
-            return 'D';
+            throw new ErrorException('Unrecognized item type');
         }
     }
 
     $passed_array = getPassedArray();
-    $item_info_type = returnItemType();
+
+    $item_info_type = getFullItemType();
     $item_name = $passed_array['name'];
     $item_uid = $passed_array['uid'];
     ?>
@@ -101,30 +105,31 @@
     itemInfoUID.innerText = '<?php echo $item_uid ?>';
 </script>
 
-<h3 id="update_info_form_title">New Location:</h3>
 <form method="post" action="../lib/backend/update_item_info.php" id="update_info_form">
     <input type="text" name="sender" id="sender" hidden>
-    <input type="text" name="item_type" id="item_type" hidden>
-    <input type="number" name="new_item_location" id="new_item_location">
-    <input type="submit" value="Submit">
+    <input type="text" name="item_type_letter" id="item_type_letter" hidden>
+    <label class="update_info_form_label" id="new_item_location_label">Location:</label>
+    <input class="update_info_form_input" type="number" name="new_item_location" id="new_item_location">
+    <br>
+    <label class="update_info_form_label" id="new_item_quantity_kg_label">Quantity (Kg):</label>
+    <input class="update_info_form_input" type="number" name="new_item_quantity_kg" id="new_item_quantity_kg">
+    <br>
+    <input type="submit" value="Update" id="update_info_form_btn">
 </form>
 
 <script>
     // Sets up $_POST form for changing location
     const sender = document.getElementById('sender');
-    const itemType = document.getElementById('item_type');
+    const itemTypeLetter = document.getElementById('item_type_letter');
+    const newItemLocation = document.getElementById('new_item_location');
+    const newItemQuantity = document.getElementById('new_item_quantity_kg');
 
     sender.value = document.getElementById('fileName').getAttribute('content');
-
     <?php
-
-
-    $item_type = getItemTypeLetter();
-
-    // sets up retrieved information to be passed
-    session_start();
-    $_SESSION['info_array'] = getPassedArray();
+    $item_type_letter = getItemTypeLetter();
     ?>
 
-    itemType.value = '<?php echo $item_type ?>';
+    itemTypeLetter.value = '<?php echo $item_type_letter ?>';
+    newItemLocation.value = <?php echo $passed_array['location'] ?>;
+    newItemQuantity.value = <?php echo $passed_array['quantity_Kg'] ?>;
 </script>

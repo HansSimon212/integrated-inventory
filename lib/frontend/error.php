@@ -45,7 +45,7 @@ if ($err_msg != '') {
             let err_msg = "<?php echo $err_msg ?>";
             let err_msg_box = document.getElementById('err_msg');
             err_msg_box.hidden = false;
-            err_msg_box.innerText = err_msg;
+            err_msg_box.innerHTML = err_msg;
         }
     </script>
 <?php

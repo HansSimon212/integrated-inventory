@@ -1,5 +1,4 @@
 <?php
-// Retrieves all $_SESSION vars (whether initialized or not)
 require("../lib/get-session-vars.php");
 ?>
 
@@ -26,18 +25,15 @@ require("../lib/get-session-vars.php");
 
     <div class="wrapper">
         <section id="main_content">
-            <h2 class="main_content_title">Change Item Location</h2>
-            <i>Update the rack location of an item</i>
+            <h2 class="main_content_title">Update Item Info</h2>
+            <i>Update the rack location/quantity of an item</i>
             <hr>
 
             <?php
-            // switch on scanning status
             if ($status == '') {
-                // QR code scanner
                 require("../lib/frontend/scanning.php");
                 // TODO: item lookup
             } elseif ($status == 'info') {
-                // Displays scanned/looked up item info
                 require("../lib/frontend/display_info.php");
             } elseif ($status == 'success') {
                 require("../lib/frontend/success.php");
@@ -46,6 +42,7 @@ require("../lib/get-session-vars.php");
             }
             require("../lib/frontend/error.php");
             ?>
+
         </section>
     </div>
 </body>
