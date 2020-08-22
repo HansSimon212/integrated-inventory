@@ -31,12 +31,12 @@ EXPECTED VARIABLES
     <canvas hidden="" id="qr-canvas"></canvas>
 </div>
 
-<form method="post" action="../backend/get-item-info.php" id="get_info_form" hidden>
+<form method="post" action="../lib/backend/get-item-info.php" id="get_info_form" hidden>
     <input type="text" name="item_uid" id="item_uid" hidden>
     <input type="text" name="sender" id="sender" hidden>
 </form>
 
-<script src="../assets/js/qr_packed.js"></script>
+<script src="../js/qr_packed.js"></script>
 <script>
     // QR Code elements
     const qrObj = window.qrcode;

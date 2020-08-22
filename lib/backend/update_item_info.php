@@ -43,7 +43,7 @@ $item_type = $_POST['item_type'];
 $new_item_location = $_POST['new_item_location'];
 $item_uid = $info_array['uid'];
 
-$destination = "Location: ../frontend/" . $sender; // calling script
+$destination = "Location: ../../src/" . $sender; // calling script
 
 // resetSessionVars: Void -> Void
 // Resets all session variables and starts a new session (creates a clean slate)
