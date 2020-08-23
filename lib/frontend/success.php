@@ -29,7 +29,7 @@ EXPECTED VARIABLES
 </div>
 
 <div>
-    <a href="update-item-info.php"><button style="width:max-content; text-align: center; padding: 8px; margin-top: 30px; color: black; font-size: 18px; font-weight: 500; border-radius: 5px;">Update Another Item</button></a>
+    <a href="scan.php"><button style="width:max-content; text-align: center; padding: 8px; margin-top: 30px; color: black; font-size: 18px; font-weight: 500; border-radius: 5px;">Update Another Item</button></a>
 </div>
 
 <script>
