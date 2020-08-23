@@ -41,11 +41,11 @@
             <td><b>CM:</b></td>
             <td id="item_info_cm"></td>
         </tr>
-        <tr>
+        <tr hidden="">
             <td><b>Shipping:</b></td>
             <td id="item_info_shipping"></td>
         </tr>
-        <tr>
+        <tr hidden="">
             <td><b>Notes:</b></td>
             <td id="item_info_notes"></td>
         </tr>
@@ -96,4 +96,14 @@ $item_notes = $passed_array['notes'];
     infoRackLoc.innerText = '<?php echo $item_rackloc ?>';
     infoShipping.innerText = '<?php echo $item_shipping ?>';
     infoNotes.innerText = '<?php echo $item_notes ?>';
+
+    // unhideIfNonEmptys the element if its contents are non-empty
+    function unhideIfNonEmpty(el) {
+        if (el.innerText != '') {
+            el.hidden = false;
+        }
+    }
+
+    unhideIfNonEmpty(infoShipping);
+    unhideIfNonEmpty(infoNotes);
 </script>

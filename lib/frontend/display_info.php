@@ -72,28 +72,29 @@ if (!empty($rm_info)) {
 ?>
 
 
-
-<form method="post" action="../lib/backend/update_item_info.php" id="update_info_form">
-    <input type="text" name="sender" id="sender" hidden>
-    <label class="update_info_form_label" id="new_item_location_label">Location:</label>
-    <input class="update_info_form_input" type="number" name="new_item_location" id="new_item_location" min="1.0" step="1.0">
-    <br>
-    <label class="update_info_form_label" id="new_item_quantity_kg_label">Quantity (Kg):</label>
-    <input class="update_info_form_input" type="number" name="new_item_quantity_kg" id="new_item_quantity_kg" min="0.00001" step="0.00001">
-    <br>
-    <input type="submit" value="Update" id="update_info_form_btn">
-</form>
+<div class="update_info_form_wrapper">
+    <div class="myform form ">
+        <form action="../lib/backend/update_item_info.php" method="post">
+            <div class="form-group">
+                <input type="text" name="sender" class="form-control my-input" id="sender" hidden>
+            </div>
+            <div class="form-group">
+                <input type="number" name="new_item_location" class="form-control my-input" id="new_item_location" placeholder="New Rack Location" min="1.0" step="1.0">
+            </div>
+            <div class="form-group">
+                <input type="number" name="new_item_quantity_kg" class="form-control my-input" id="new_item_quantity_kg" placeholder="New Quantity (Kg)" min="0.001" step="0.001">
+            </div>
+            <div class="text-center ">
+                <input type="submit" value="Update Info" id="update_info_form_btn">
+            </div>
+        </form>
+    </div>
+</div>
 
 <script>
     // Sets up $_POST form for changing location
     const sender = document.getElementById('sender');
-    const newItemLocation = document.getElementById('new_item_location');
-    const newItemQuantity = document.getElementById('new_item_quantity_kg');
-
     sender.value = document.getElementById('fileName').getAttribute('content');
-
-    newItemLocation.value = <?php echo $passed_array['location'] ?>;
-    newItemQuantity.value = <?php echo $passed_array['quantity_Kg'] ?>;
 
     // Sets $rm_info and $dispersion info
     <?php
