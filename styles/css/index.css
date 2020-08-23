@@ -79,6 +79,7 @@ header * {
   text-align: center;
   align-content: center;
   align-items: center;
+  overflow-y: scroll;
 }
 
 #main_content h2 {

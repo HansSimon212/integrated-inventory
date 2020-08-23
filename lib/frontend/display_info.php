@@ -22,73 +22,56 @@
 ================================================================================================
 
 -->
-<div id="scanned_item_info">
-    <h3>Scanned Item Info:</h3>
-    <table id="scanned_item_info_table">
-        <tr>
-            <td><b>Item Type:</b></td>
-            <td id="item_info_type"></td>
-        </tr>
-        <tr>
-            <td><b>Name:</b></td>
-            <td id="item_info_name"></td>
-        </tr>
-        <tr>
-            <td><b>UID:</b></td>
-            <td id="item_info_uid"></td>
-        </tr>
-    </table>
-</div>
 
-<script>
-    const itemInfoType = document.getElementById('item_info_type');
-    const itemInfoName = document.getElementById('item_info_name');
-    const itemInfoUID = document.getElementById('item_info_uid');
+<?php
 
-    <?php
+// getPassedArray(): Void -> Array
+// Returns which of {$rm_info, $dispersion_info} is nonempty
+function getPassedArray()
+{
+    global $rm_info, $dispersion_info;
 
-    // getPassedArray(): Void -> Array
-    // Returns which of {$rm_info, $dispersion_info} is nonempty
-    function getPassedArray()
-    {
-        global $rm_info, $dispersion_info;
-
-        if (!empty($rm_info)) {
-            return $rm_info;
-        } else if (!empty($dispersion_info)) {
-            return $dispersion_info;
-        } else {
-            throw new ErrorException('Both rm_info and dispersion_info are empty');
-        }
+    if (!empty($rm_info)) {
+        return $rm_info;
+    } else if (!empty($dispersion_info)) {
+        return $dispersion_info;
+    } else {
+        throw new ErrorException('Both rm_info and dispersion_info are empty');
     }
+}
 
-    // getFullItemType(): Void -> String
-    // Returns the full item type of the scanned/looked up item.
-    // This item type is displayed to the user for scanning/lookup verification
-    function getFullItemType()
-    {
-        global $rm_info, $dispersion_info;
+// getFullItemType(): Void -> String
+// Returns the full item type of the scanned/looked up item.
+// This item type is displayed to the user for scanning/lookup verification
+function getFullItemType()
+{
+    global $rm_info, $dispersion_info;
 
-        if (!empty($rm_info)) {
-            return 'Raw Material';
-        } else if (!empty($dispersion_info)) {
-            return 'Dispersion';
-        } else {
-            return 'Unrecognized';
-        }
+    if (!empty($rm_info)) {
+        return 'Raw Material';
+    } else if (!empty($dispersion_info)) {
+        return 'Dispersion';
+    } else {
+        return 'Unrecognized';
     }
+}
 
-    $passed_array = getPassedArray();
+$passed_array = getPassedArray(); // finds non-empty info array ($rm_info, $dispersion_info,...)
 
-    $item_info_type = getFullItemType();
-    $item_name = $passed_array['name'];
-    $item_uid = $passed_array['uid'];
-    ?>
+// What type of material's information do we have?
+if (!empty($rm_info)) {
+    // We have Raw Material info
+    require("../lib/frontend/display_rm.php");
+} else if (!empty($dispersion_info)) {
+    // We have Dispersion info
+    require("../lib/frontend/display_dispersion.php");
+} else {
+    // If my code gets here I am giving up on Computer Science
+    throw new ErrorException('Both RM and Dispersion info arrays are empty.');
+}
+?>
 
-    itemInfoType.innerText = '<?php echo $item_info_type ?>';
-    itemInfoName.innerText = '<?php echo $item_name ?>';
-    itemInfoUID.innerText = '<?php echo $item_uid ?>';
-</script>
+
 
 <form method="post" action="../lib/backend/update_item_info.php" id="update_info_form">
     <input type="text" name="sender" id="sender" hidden>
