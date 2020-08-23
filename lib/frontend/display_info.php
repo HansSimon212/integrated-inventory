@@ -78,21 +78,6 @@
         }
     }
 
-    // getItemTypeLetter(): Void -> String
-    // Returns the letter representing the type of item the user scanned
-    function getItemTypeLetter()
-    {
-        global $rm_info, $dispersion_info;
-
-        if (!empty($rm_info)) {
-            return 'R';
-        } else if (!empty($dispersion_info)) {
-            return 'D';
-        } else {
-            throw new ErrorException('Unrecognized item type');
-        }
-    }
-
     $passed_array = getPassedArray();
 
     $item_info_type = getFullItemType();
@@ -107,12 +92,11 @@
 
 <form method="post" action="../lib/backend/update_item_info.php" id="update_info_form">
     <input type="text" name="sender" id="sender" hidden>
-    <input type="text" name="item_type_letter" id="item_type_letter" hidden>
     <label class="update_info_form_label" id="new_item_location_label">Location:</label>
-    <input class="update_info_form_input" type="number" name="new_item_location" id="new_item_location">
+    <input class="update_info_form_input" type="number" name="new_item_location" id="new_item_location" min="1.0" step="1.0">
     <br>
     <label class="update_info_form_label" id="new_item_quantity_kg_label">Quantity (Kg):</label>
-    <input class="update_info_form_input" type="number" name="new_item_quantity_kg" id="new_item_quantity_kg">
+    <input class="update_info_form_input" type="number" name="new_item_quantity_kg" id="new_item_quantity_kg" min="0.00001" step="0.00001">
     <br>
     <input type="submit" value="Update" id="update_info_form_btn">
 </form>
@@ -120,16 +104,17 @@
 <script>
     // Sets up $_POST form for changing location
     const sender = document.getElementById('sender');
-    const itemTypeLetter = document.getElementById('item_type_letter');
     const newItemLocation = document.getElementById('new_item_location');
     const newItemQuantity = document.getElementById('new_item_quantity_kg');
 
     sender.value = document.getElementById('fileName').getAttribute('content');
-    <?php
-    $item_type_letter = getItemTypeLetter();
-    ?>
 
-    itemTypeLetter.value = '<?php echo $item_type_letter ?>';
     newItemLocation.value = <?php echo $passed_array['location'] ?>;
     newItemQuantity.value = <?php echo $passed_array['quantity_Kg'] ?>;
+
+    // Sets $rm_info and $dispersion info
+    <?php
+    $_SESSION['rm_info'] = $rm_info;
+    $_SESSION['dispersion_info'] = $dispersion_info;
+    ?>
 </script>

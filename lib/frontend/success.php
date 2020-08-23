@@ -23,9 +23,13 @@ EXPECTED VARIABLES
 
 -->
 
-<img src="https://freeiconshop.com/wp-content/uploads/edd/checkmark-flat.png" alt="Success Icon" style="width: 200px; padding: 8px 0px 15px 0px;">
+<img src="https://freeiconshop.com/wp-content/uploads/edd/checkmark-flat.png" alt="Success Icon" style="width: 200px; margin: 30px 0;">
 <br>
-<div style="width: 100%; text-align: center; font-size: 16px; font-weight: 500;" id="success_msg">
+<div style="width: 100%; text-align: center; font-size: 18px; font-weight: 500;" id="success_msg">
+</div>
+
+<div>
+    <a href="update-item-info.php"><button style="width:max-content; text-align: center; padding: 8px; margin-top: 30px; color: black; font-size: 18px; font-weight: 500; border-radius: 5px;">Update Another Item</button></a>
 </div>
 
 <script>

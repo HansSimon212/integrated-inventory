@@ -58,7 +58,6 @@ function getPassedArray()
 
 $passed_array = getPassedArray();
 
-$item_type_letter = $_POST['item_type_letter'];
 $new_item_location = $_POST['new_item_location'];
 $new_item_quantity_kg = $_POST['new_item_quantity_kg'];
 $item_uid = $passed_array['uid'];
@@ -151,7 +150,7 @@ $previous_item_quantity_kg = $passed_array['quantity_Kg'];
 
 // if neither location nor quantity is going to change, returns with error
 if ($previous_item_location == $new_item_location && $previous_item_quantity_kg == $new_item_quantity_kg) {
-    returnToSender('info', 'Item already has<br>location: ' . $new_item_location . " quantity: " . $new_item_quantity_kg);
+    returnToSender('info', 'Item already has<br>Location: ' . $new_item_location . "<br>Quantity: " . $new_item_quantity_kg, '', $rm_info, $dispersion_info);
 }
 
 // composeSuccessMessage(): String String -> String
@@ -161,40 +160,36 @@ function composeSuccessMessage($prev_loc, $prev_quant, $new_loc, $new_quant)
     global $passed_array;
 
     $success_msg = '';
-    $diff_loc = ($prev_loc == $new_loc);
-    $diff_quant = ($prev_quant == $new_quant);
+    $diff_loc = ($prev_loc != $new_loc);
+    $diff_quant = ($prev_quant != $new_quant);
 
     // INVARIANT: either location or quantity was updated
     if ($diff_loc && !$diff_quant) {
-        return 'Successfully moved<br>' . $passed_array['name'] . '<br>from Rack ' . $prev_loc . 'to Rack ' . $new_loc;
+        return 'Successfully moved<br>' . $passed_array['name'] . '<br>Rack ' . $prev_loc . ' &#10230 Rack ' . $new_loc;
     } else if ($diff_quant && !$diff_loc) {
-        return 'Successfully changed quantity of<br>' . $passed_array['name'] . '<br>from ' . $prev_quant . 'to ' . $new_quant;
+        return 'Successfully changed quantity of<br>' . $passed_array['name'] . '<br>' . $prev_quant . ' Kg &#10230 ' . $new_quant . ' Kg';
     } else {
-        return 'Successfully moved<br>' . $passed_array['name'] . '<br>from Rack ' . $prev_loc . 'to Rack ' . $new_loc . '<br>and changed quantity from ' . $prev_quant . ' to ' . $new_quant;
+        return 'Successfully moved<br>' . $passed_array['name'] . '<br>Rack ' . $prev_loc . ' &#10230 Rack ' . $new_loc . '<br>and changed quantity<br>' . $prev_quant . ' Kg &#10230 ' . $new_quant . ' Kg';
     }
 }
 
-// Builds query based on item type (last character in item_uid)
-switch ($item_type_letter) {
-    case "R":
-        $sql = "UPDATE 29_RAW_INVENTORY SET location=" . $new_item_location . ",
+// Builds and submits query based on item type
+if (!empty($rm_info)) {
+    $sql = "UPDATE 29_RAW_INVENTORY SET location=" . $new_item_location . ",
         quantity_Kg=" . $new_item_quantity_kg . " WHERE uid=" . $item_uid . "";
 
-        queryDatabase($sql);
+    queryDatabase($sql);
 
-        // We know the query was successful
-        returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
-        break;
-    case "D":
-        $sql = "UPDATE 29_Dispersion_Inventory SET location=" . $new_item_location . ",
+    // We know the query was successful
+    returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
+} else if (!empty($dispersion_info)) {
+    $sql = "UPDATE 29_Dispersion_Inventory SET location=" . $new_item_location . ",
         quantity_Kg=" . $new_item_quantity_kg . " WHERE uid=" . $item_uid . "";
 
-        queryDatabase($sql);
-        // We know the query was successful
+    queryDatabase($sql);
+    // We know the query was successful
 
-        returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
-        break;
-    default:
-        resetSessionVars();
-        returnToSender('', "Unrecognized item type: " . $item_type_letter, '', array(), array());
+    returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
+} else {
+    returnToSender('', "Unrecognized item type (attempted item info update)", '', array(), array());
 }
