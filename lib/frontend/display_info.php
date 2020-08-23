@@ -73,7 +73,7 @@ if (!empty($rm_info)) {
 
 
 <div class="update_info_form_wrapper">
-    <div class="myform form ">
+    <div class="myform form">
         <form action="../lib/backend/update_item_info.php" method="post">
             <div class="form-group">
                 <input type="text" name="sender" class="form-control my-input" id="sender" hidden>

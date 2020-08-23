@@ -22,13 +22,17 @@ Vertical Reponsive Menu
   outline: none;
 }
 
+fa *::before {
+  font-size: 30px;
+}
+
 /* line 52, sass/vertical-responsive-menu.scss */
 .vertical_nav {
   position: absolute;
-  left: -275px;
-  top: 50px;
+  left: -250px;
+  top: 70px;
   bottom: 0px;
-  width: 275px;
+  width: 250px;
   background: #f6f6f6;
 }
 

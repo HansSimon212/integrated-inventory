@@ -12,7 +12,6 @@ EXPECTED VARIABLES
 -->
 
 <div id="container">
-    <h3>Scan an Item:</h3>
     <a id="btn-scan-qr">
         <img src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg" alt="QR Code image not found.">
     </a>

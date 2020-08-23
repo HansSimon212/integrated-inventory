@@ -51,21 +51,9 @@ header * {
   left: 125px !important; /* controls positioning of page title*/
 }
 
-/* 
-.title h1::before {
-  content: "";
-  background-image: url("imgs/lei_logo_resize.png");
-  background-size: 30px 39.2px;
-  display: inline-block;
-  width: 30px;
-  height: 39.2px;
-  line-height: 70px;
-  vertical-align: middle;
-} */
-
 .wrapper {
   /*margin-top: 50px;*/
-  padding: 15px 30px;
+  padding: 15px 30px 300px 30px;
   transition: all 0.3s ease-out;
 }
 
@@ -111,7 +99,7 @@ header * {
   height: 10em;
   padding: 5px;
   border: medium solid black;
-  margin: 0px;
+  margin: 40px 0px;
   background: white;
   box-shadow: 3px 3px 3px 3px;
   border-radius: 10px;
@@ -253,6 +241,12 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 21px;
   line-height: 32px;
   font-weight: 400;
+}
+
+#update_info_form_btn {
+  font-size: 16px;
+  padding: 5px 10px;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 480px) {

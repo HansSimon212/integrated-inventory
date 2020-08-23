@@ -1,56 +1,30 @@
-<div id="scanned_item_info">
-    <h3>Scanned Item Info:</h3>
-    <table id="scanned_item_info_table">
+<table id="item_info_table">
+    <caption>Item Info</caption>
+    <thead>
         <tr>
-            <td><b>Item Type:</b></td>
-            <td id="item_info_type"></td>
+            <th scope="col">Item Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">UID</th>
+            <th scope="col">Period</th>
         </tr>
+    </thead>
+    <tbody>
         <tr>
-            <td><b>Name:</b></td>
-            <td id="item_info_name"></td>
+            <td data-label="Item Type" id="item_info_type"></td>
+            <td data-label="Name" id="item_info_name"></td>
+            <td data-label="UID" id="item_info_uid"></td>
+            <td data-label="Quantity (Kg)" id="item_info_quantitykg"></td>
+            <td data-label="Expiration Date" id="item_info_expdate"></td>
+            <td data-label="Rack Location" id="item_info_rackloc"></td>
+            <td data-label="Formula" id="item_info_formula"></td>
+            <td data-label="MFG" id="item_info_mfg"></td>
+            <td data-label="Pack Out" id="item_info_packout"></td>
+            <td data-label="CM" id="item_info_cm"></td>
+            <td data-label="Shipping" id="item_info_shipping"></td>
+            <td data-label="Notes" id="item_info_notes"></td>
         </tr>
-        <tr>
-            <td><b>UID:</b></td>
-            <td id="item_info_uid"></td>
-        </tr>
-        <tr>
-            <td><b>Quantity (Kg):</b></td>
-            <td id="item_info_quantitykg"></td>
-        </tr>
-        <tr>
-            <td><b>Expiration Date:</b></td>
-            <td id="item_info_expdate"></td>
-        </tr>
-        <tr>
-            <td><b>Rack Location:</b></td>
-            <td id="item_info_rackloc"></td>
-        </tr>
-        <tr>
-            <td><b>Formula:</b></td>
-            <td id="item_info_formula"></td>
-        </tr>
-        <tr>
-            <td><b>MFG:</b></td>
-            <td id="item_info_mfg"></td>
-        </tr>
-        <tr>
-            <td><b>Pack Out:</b></td>
-            <td id="item_info_packout"></td>
-        </tr>
-        <tr>
-            <td><b>CM:</b></td>
-            <td id="item_info_cm"></td>
-        </tr>
-        <tr hidden="">
-            <td><b>Shipping:</b></td>
-            <td id="item_info_shipping"></td>
-        </tr>
-        <tr hidden="">
-            <td><b>Notes:</b></td>
-            <td id="item_info_notes"></td>
-        </tr>
-    </table>
-</div>
+    </tbody>
+</table>
 
 <?php
 $item_type = getFullItemType();
@@ -65,9 +39,7 @@ $item_cm = $passed_array['CM'];
 $item_rackloc = $passed_array['location'];
 $item_shipping = $passed_array['shipping'];
 $item_notes = $passed_array['notes'];
-
 ?>
-
 
 <script>
     // Sets all item info
@@ -97,13 +69,13 @@ $item_notes = $passed_array['notes'];
     infoShipping.innerText = '<?php echo $item_shipping ?>';
     infoNotes.innerText = '<?php echo $item_notes ?>';
 
-    // unhideIfNonEmptys the element if its contents are non-empty
-    function unhideIfNonEmpty(el) {
-        if (el.innerText != '') {
-            el.hidden = false;
+    // hides table rows with no content
+    function hideIfEmpty(el) {
+        if (el.innerText === '') {
+            el.hidden = true;
         }
     }
 
-    unhideIfNonEmpty(infoShipping);
-    unhideIfNonEmpty(infoNotes);
+    hideIfEmpty(infoShipping);
+    hideIfEmpty(infoNotes);
 </script>

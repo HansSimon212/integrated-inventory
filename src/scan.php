@@ -10,7 +10,7 @@ require("../lib/get-session-vars.php");
     <title>Inventory Manager</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <meta id="fileName" content="update-item-info.php">
+    <meta id="fileName" content="scan.php">
 
     <?php
     require("../lib/frontend/import.html");
@@ -25,8 +25,8 @@ require("../lib/get-session-vars.php");
 
     <div class="wrapper">
         <section id="main_content">
-            <h2 class="main_content_title">Update Item Info</h2>
-            <i>Update the rack location/quantity of an item</i>
+            <h2 class="main_content_title">Scan</h2>
+            <i>Update item weight/rack location, or get information about an item</i>
             <hr>
 
             <?php
