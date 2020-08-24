@@ -11,12 +11,11 @@ EXPECTED VARIABLES
 
 -->
 
-<div id="container">
-    <a id="btn-scan-qr">
-        <img src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg" alt="QR Code image not found.">
-    </a>
-    <canvas hidden="" id="qr-canvas"></canvas>
+<div id="btn-scan-qr">
+    <img src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg" alt="QR Code image not found.">
 </div>
+
+<canvas id="qr-canvas"></canvas>
 
 <form method="post" action="../lib/backend/get-item-info.php" id="get_info_form" hidden>
     <input type="text" name="item_uid" id="item_uid" hidden>
@@ -69,8 +68,8 @@ EXPECTED VARIABLES
             })
             .then(function(stream) {
                 scanning = true;
-                btnScanQR.hidden = true;
-                canvasElement.hidden = false;
+                btnScanQR.style.display = "none";
+                canvasElement.style.display = "block";
                 // required to tell iOS safari we don't want fullscreen
                 video.setAttribute("playsinline", true);
                 video.srcObject = stream;

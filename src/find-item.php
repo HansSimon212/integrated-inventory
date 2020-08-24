@@ -6,6 +6,7 @@
     <title>Inventory Manager</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta id="fileName" content="scan.php">
 
     <?php
     require("../lib/frontend/import.html");
@@ -13,15 +14,38 @@
 </head>
 
 <body>
-    <?php
-    require("../lib/frontend/header.html");
-    require("../lib/frontend/vrm.html");
-    ?>
+    <?php require("../lib/frontend/header.html"); ?>
 
     <div class="wrapper">
-        <section id="main_content">
-        </section>
+        <?php
+        if ($status == '') {
+            require("../lib/frontend/scanning.php");
+            // TODO: item lookup
+        } elseif ($status == 'info') {
+            require("../lib/frontend/display_info.php");
+        } elseif ($status == 'success') {
+            require("../lib/frontend/success.php");
+        } else {
+            $err_msg = 'Invalid status "' . $status . '"';
+            $_SESSION = [];
+        }
+        require("../lib/frontend/error.php");
+        ?>
     </div>
+
+    <footer>
+        <nav>
+            <a href="#">
+                <i class="fa fa-fw fa-search nav--icon nav--icon--current"></i>
+            </a>
+            <a href="scan.php">
+                <i class="fa fa-fw fa-qrcode nav--icon"></i>
+            </a>
+            <a href="remove-item.php">
+                <i class="fa fa-fw fa-trash nav--icon"></i>
+            </a>
+        </nav>
+    </footer>
 </body>
 
 </html>
