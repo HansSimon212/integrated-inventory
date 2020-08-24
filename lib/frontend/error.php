@@ -13,28 +13,17 @@
     > $success_msg :String        
     : any success message to be used in calling script 
     
-    > $rm_info :String             
-    : retrieved information about a raw material (serialized Array)
+    > $rm_info :Array
+    : retrieved information about a raw material
     
-    > $dispersion_info :String
-    : retrieved information about a dispersion (serialized Array)
+    > $dispersion_info :Array
+    : retrieved information about a dispersion
     
 ================================================================================================
 
 -->
 
 <div id="err_msg" hidden></div>
-
-<style>
-    #err_msg {
-        color: firebrick;
-        font-size: 16px;
-        font-weight: 800;
-        text-align: center;
-        width: max-content;
-        padding: 15px;
-    }
-</style>
 
 <?php
 // checks if an error code was passed, displays error message if one was

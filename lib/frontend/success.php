@@ -13,14 +13,13 @@ EXPECTED VARIABLES
 > $success_msg :String
 : any success message to be used in calling script
 
-> $rm_info :String
-: retrieved information about a raw material (serialized Array)
+> $rm_info :Array
+: retrieved information about a raw material
 
-> $dispersion_info :String
-: retrieved information about a dispersion (serialized Array)
+> $dispersion_info :Array
+: retrieved information about a dispersion
 
 ================================================================================================
-
 -->
 
 <img src="https://freeiconshop.com/wp-content/uploads/edd/checkmark-flat.png" alt="Success Icon" style="width: 200px; margin: 30px 0;">
@@ -29,7 +28,7 @@ EXPECTED VARIABLES
 </div>
 
 <div>
-    <a href="scan.php"><button style="width:max-content; text-align: center; padding: 8px; margin-top: 30px; color: black; font-size: 18px; font-weight: 500; border-radius: 5px;">Update Another Item</button></a>
+    <a href="scan.php"><button>Update Another Item</button></a>
 </div>
 
 <script>

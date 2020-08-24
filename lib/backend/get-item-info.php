@@ -109,7 +109,7 @@ function queryDatabase($sql)
 
 // Returns an error if item_uid is poorly formed
 if (strlen($item_uid) < 2) {
-    returnToSender('', 'Poorly formed uid: ' . $item_uid, '', array(), array());
+    returnToSender('', 'Poorly formed uid:<br>' . $item_uid, '', array(), array());
 }
 
 // splits uid into number and letter representing item type
@@ -119,7 +119,7 @@ $item_type = $item_uid[strlen($item_uid) - 1];
 
 // Returns an error if item_uid doesn't contain valid number
 if ($casted_uid_num <= 0) {
-    returnToSender('', 'Poorly formed uid: ' . $item_uid, '', array(), array());
+    returnToSender('', 'Poorly formed uid:<br>' . $item_uid, '', array(), array());
 }
 
 // Attempts to connect to database
@@ -136,5 +136,5 @@ switch ($item_type) {
         returnToSender('info', '', '', array(), queryDatabase($sql));
         break;
     default:
-        returnToSender('', 'Unrecognized item type: ' . $item_type, '', array(), array());
+        returnToSender('', 'Unrecognized item type:<br>' . $item_type, '', array(), array());
 }
