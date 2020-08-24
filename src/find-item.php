@@ -20,12 +20,6 @@
 
     <div class="wrapper">
         <section id="main_content">
-            <h2 class="main_content_title">Find Item</h2>
-            <i>Locate an item in the warehouse</i>
-            <hr>
-
-            <?php
-            ?>
         </section>
     </div>
 </body>

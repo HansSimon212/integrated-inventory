@@ -25,10 +25,6 @@ require("../lib/get-session-vars.php");
 
     <div class="wrapper">
         <section id="main_content">
-            <h2 class="main_content_title">Scan</h2>
-            <i>Update item weight/rack location, or get information about an item</i>
-            <hr>
-
             <?php
             if ($status == '') {
                 require("../lib/frontend/scanning.php");

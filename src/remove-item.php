@@ -20,12 +20,6 @@
 
     <div class="wrapper">
         <section id="main_content">
-            <h2 class="main_content_title">Remove Item</h2>
-            <i>Remove an item from the inventory.</i>
-            <hr>
-
-            <?php
-            ?>
         </section>
     </div>
 </body>
