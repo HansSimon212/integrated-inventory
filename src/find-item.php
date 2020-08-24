@@ -1,3 +1,7 @@
+<?php
+require("../lib/get-session-vars.php");
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
