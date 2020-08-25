@@ -136,7 +136,7 @@ if ($new_item_quantity_kg <= 0) {
 }
 
 // $new_item_location
-if (ctype_space($new_item_location)) {
+if ($new_item_location == '' || ctype_space($new_item_location)) {
     returnToSender('info', 'Please enter an item location.<br>No location was given.', '', $rm_info, $dispersion_info);
 }
 
