@@ -129,13 +129,6 @@ function queryDatabase($sql)
     return mysqli_fetch_array($result);
 }
 
-// Error checking user inputted new item location, new item quantity
-// $new_item_location
-if ($new_item_location <= 0) {
-    returnToSender('info', 'Invalid item location: ' . $new_item_location . '<br>Please input
-    a positive number with no decimals.', '', $rm_info, $dispersion_info);
-}
-
 // $new_item_quantity_kg
 if ($new_item_quantity_kg <= 0) {
     returnToSender('info', 'Invalid item quantity: ' . $new_item_quantity_kg . '<br>Please input

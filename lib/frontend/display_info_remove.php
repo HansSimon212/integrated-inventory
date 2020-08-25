@@ -76,14 +76,19 @@ if (!empty($rm_info)) {
 
 <script>
     // handles remove confirmation button click
-    function handleRemoveBtn() {
+    function handleRemoveConfirm() {
         // attempts to remove item
         const removeItemForm = document.getElementById('remove_item_form');
         removeItemForm.submit();
     }
 
     // handles remove confirmation button cancel
-    function handleRemove
+    function handleRemoveCancel() {
+        // clears all session variables
+        <?php $_SESSION = []; ?>
+        // returns to scanning page
+        window.open("scan.php", "_top");
+    }
 </script>
 
 <form action="../lib/backend/remove_item.php" id="remove_item_form" hidden>
@@ -104,7 +109,6 @@ if (!empty($rm_info)) {
 
 <div id="remove_confirmation_wrapper">
     <p id="remove_confirmation_title">Remove Item From Inventory?</p>
-    <p id="remove_confirmation_subtitle">This cannot be undone</p>
-    <button id="remove_confirmation_cancel">Cancel</button>
-    <button id="remove_confirmation_remove">Remove</button>
+    <button id="remove_confirmation_cancel" onclick="handleRemoveCancel()">Cancel</button>
+    <button id="remove_confirmation_remove" onclick="handleRemoveConfirm()">Remove</button>
 </div>
