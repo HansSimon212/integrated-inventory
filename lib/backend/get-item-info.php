@@ -117,6 +117,16 @@ $uid_num = substr($item_uid, 0, -1);
 $casted_uid_num = intval($item_uid);
 $item_type = $item_uid[strlen($item_uid) - 1];
 
+// ensures item type exists
+switch ($item_type) {
+    case "R":
+        break;
+    case "D":
+        break;
+    default:
+        returnToSender('', 'Unrecognized item type for<br>UID: ' . $item_uid, '', array(), array());
+}
+
 // Returns an error if item_uid doesn't contain valid number
 if ($casted_uid_num <= 0) {
     returnToSender('', 'UID\'s must be greater than 0:<br>' . $item_uid, '', array(), array());
