@@ -123,7 +123,7 @@ function queryDatabase($sql)
         returnToSender('info', 'Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql, '', $rm_info, $dispersion_info);
     }
 
-    if (mysqli_connect_errno()) {
+    if (mysqli_errno($con)) {
         returnToSender('info', 'Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error, '', $rm_info, $dispersion_info);
     }
     return mysqli_fetch_array($result);
@@ -133,6 +133,11 @@ function queryDatabase($sql)
 if ($new_item_quantity_kg <= 0) {
     returnToSender('info', 'Invalid item quantity: ' . $new_item_quantity_kg . '<br>Please input
     a positive number.', '', $rm_info, $dispersion_info);
+}
+
+// $new_item_location
+if (ctype_space($new_item_location)) {
+    returnToSender('info', 'Please enter an item location.<br>No location was given.', '', $rm_info, $dispersion_info);
 }
 
 // Attempts to connect to database
