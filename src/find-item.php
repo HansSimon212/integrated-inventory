@@ -22,7 +22,7 @@
 
     <footer>
         <nav>
-            <a href="#">
+            <a href="find-item.php">
                 <i class="fa fa-fw fa-search nav--icon nav--icon--current"></i>
             </a>
             <a href="scan.php">

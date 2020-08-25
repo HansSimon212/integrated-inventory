@@ -42,7 +42,7 @@ require("../lib/get-session-vars.php");
             <a href="find-item.php">
                 <i class="fa fa-fw fa-search nav--icon"></i>
             </a>
-            <a href="#">
+            <a href="scan.php">
                 <i class="fa fa-fw fa-qrcode nav--icon nav--icon--current"></i>
             </a>
             <a href="remove-item.php">
