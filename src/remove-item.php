@@ -26,7 +26,7 @@ require("../lib/get-session-vars.php");
             require("../lib/frontend/scanning.php");
             // TODO: item lookup
         } elseif ($status == 'info') {
-            require("../lib/frontend/display_info.php");
+            require("../lib/frontend/display_info_remove.php");
         } elseif ($status == 'success') {
             require("../lib/frontend/success.php");
         } else {

@@ -13,11 +13,14 @@
     > $success_msg :String        
     : any success message to be used in calling script 
     
-    > $rm_info :String             
-    : retrieved information about a raw material (serialized Array)
+    > $rm_info :Array      
+    : retrieved information about a raw material
     
-    > $dispersion_info :String
-    : retrieved information about a dispersion (serialized Array)
+    > $dispersion_info :Array
+    : retrieved information about a dispersion
+
+    > $passed_array :Array
+    :  retrieved information about scanned item ($passed_array == $rm_info || $passed_array == $dispersion_info)
     
 ================================================================================================
 
@@ -71,37 +74,26 @@ if (!empty($rm_info)) {
 }
 ?>
 
+<script>
+    // handles remove confirmation button click
+    function handleRemoveBtn() {
+        // attempts to remove item
+        const removeItemForm = document.getElementById('remove_item_form');
+        removeItemForm.submit();
+    }
 
-<div class="update_info_form_wrapper">
-    <div class="myform form">
-        <form action="../lib/backend/update_item_info.php" method="post">
-            <div class="form-group">
-                <input type="text" name="sender" class="form-control my-input" id="sender" hidden>
-            </div>
-            <label for="new_item_location">Location:</label>
-            <div class="form-group">
-                <input type="text" name="new_item_location" class="form-control my-input" id="new_item_location">
-            </div>
-            <label for="new_item_quantity_kg">Quantity (Kg):</label>
-            <div class="form-group">
-                <input type="text" name="new_item_quantity_kg" class="form-control my-input" id="new_item_quantity_kg">
-            </div>
-            <div class="text-center ">
-                <input type="submit" value="Update Info" id="update_info_form_btn">
-            </div>
-        </form>
-    </div>
-</div>
+    // handles remove confirmation button cancel
+    function handleRemove
+</script>
+
+<form action="../lib/backend/remove_item.php" id="remove_item_form" hidden>
+    <input type="text" id="sender" name="sender">
+</form>
 
 <script>
     // Sets up $_POST form for changing location
     const sender = document.getElementById('sender');
-    const newItemLocation = document.getElementById('new_item_location');
-    const newItemQuantityKg = document.getElementById('new_item_quantity_kg');
-
     sender.value = document.getElementById('fileName').getAttribute('content');
-    newItemLocation.value = '<?php echo $passed_array['location'] ?>';
-    newItemQuantityKg.value = '<?php echo $passed_array['quantity_Kg'] ?>';
 
     // Sets $rm_info and $dispersion info
     <?php
@@ -109,3 +101,10 @@ if (!empty($rm_info)) {
     $_SESSION['dispersion_info'] = $dispersion_info;
     ?>
 </script>
+
+<div id="remove_confirmation_wrapper">
+    <p id="remove_confirmation_title">Remove Item From Inventory?</p>
+    <p id="remove_confirmation_subtitle">This cannot be undone</p>
+    <button id="remove_confirmation_cancel">Cancel</button>
+    <button id="remove_confirmation_remove">Remove</button>
+</div>

@@ -18,9 +18,7 @@
             <td data-label="Rack Location" id="item_info_rackloc"></td>
             <td data-label="LOT" id="item_info_lot"></td>
             <td data-label="RM #" id="item_info_rm"></td>
-            <!--<td data-label="LEI" id="item_info_lei"></td>-->
-            <td data-label="YOU" id="item_info_you"></td>
-            <td data-label="BEN" id="item_info_ben"></td>
+            <td data-label="Owner" id="item_info_owner"></td>
             <td data-label="EXP" id="item_info_exp"></td>
             <td data-label="CS" id="item_info_cs"></td>
             <td data-label="ECT" id="item_info_ect"></td>
@@ -39,7 +37,6 @@ $item_expdate = $passed_array['Exp_Date'];
 $item_rackloc = $passed_array['location'];
 $item_lot = $passed_array['LOT'];
 $item_rm = $passed_array['RM'];
-// $item_lei = $passed_array['LEI'];
 $item_you = $passed_array['YOU'];
 $item_ben = $passed_array['BEN'];
 $item_exp = $passed_array['EXP'];
@@ -59,9 +56,9 @@ $item_notes = $passed_array['notes'];
     const infoRackLoc = document.getElementById('item_info_rackloc');
     const infoLot = document.getElementById('item_info_lot');
     const infoRM = document.getElementById('item_info_rm');
-    // const infoLEI = document.getElementById('item_info_lei');
-    const infoYOU = document.getElementById('item_info_you');
-    const infoBEN = document.getElementById('item_info_ben');
+
+    // These might be empty
+    const infoOwner = document.getElementById('item_info_owner');
     const infoEXP = document.getElementById('item_info_exp');
     const infoCS = document.getElementById('item_info_cs');
     const infoECT = document.getElementById('item_info_ect');
@@ -76,26 +73,38 @@ $item_notes = $passed_array['notes'];
     infoRackLoc.innerText = '<?php echo $item_rackloc ?>';
     infoLot.innerText = '<?php echo $item_lot ?>';
     infoRM.innerText = '<?php echo $item_rm ?>';
-    // infoLEI.innerText = 'echo $item_lei';
-    infoYOU.innerText = '<?php echo $item_you ?>';
-    infoBEN.innerText = '<?php echo $item_ben ?>';
+
+    // Sets Owner value in table
+    <?php
+    $item_owner;
+    if ($item_you == 1) {
+        $item_owner = "Younique";
+    } else if ($item_ben == 1) {
+        $item_owner = "Bentley Labs";
+    } else {
+        $item_owner = "LEI";
+    }
+    ?>
+
+    infoOwner.innerText = '<?php echo $item_owner ?>';
+
+    // Might be empty
     infoEXP.innerText = '<?php echo $item_exp ?>';
     infoCS.innerText = '<?php echo $item_cs ?>';
     infoECT.innerText = '<?php echo $item_ect ?>';
     infoContainer.innerText = '<?php echo $item_container ?>';
     infoNotes.innerText = '<?php echo $item_notes ?>';
 
-    // hides table rows with no content
+
+    // hideIfEmpty(): DOM Element -> Void
+    // hides an element if its contents are empty
     function hideIfEmpty(el) {
         if (el.innerText === '') {
-            el.hidden = true;
+            el.style.display = "none";
         }
     }
 
-    hideIfEmpty(infoYOU);
-    hideIfEmpty(infoBEN);
-    hideIfEmpty(infoEXP);
-    hideIfEmpty(infoCS);
+    // hides non-critical empty fields
     hideIfEmpty(infoECT);
     hideIfEmpty(infoContainer);
     hideIfEmpty(infoNotes);

@@ -12,7 +12,8 @@ $_POST:
     > 'new_item_quantity_kg' : new quantity for the scanned/looked up item
     
 $_SESSION:
-    > 'passed_array'  : array of retrieved information about the scanned item
+    > 'rm_info'  : array of retrieved information about a raw material, if one was scanned
+    > 'dispersion_info'  : array of retrieved information about a raw material, if one was scanned
 
 ====================================================================================================
                                     VARIABLES SET BEFORE RETURN
@@ -28,11 +29,11 @@ $_SESSION:
     > 'success_msg' :String        
     : any success message to be used in calling script 
     
-    > 'rm_info' :String             
-    : retrieved information about a raw material (serialized Array)
+    > 'rm_info' :Array      
+    : retrieved information about a raw material
     
-    > 'dispersion_info' :String
-    : retrieved information about a dispersion (serialized Array)
+    > 'dispersion_info' :Array
+    : retrieved information about a dispersion
 
     ================================================================================================
 */

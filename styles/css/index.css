@@ -124,6 +124,8 @@ table th,
 table td {
   padding: 0.625em;
   text-align: center;
+  min-height: 1em;
+  height: max-content;
 }
 
 table th {
@@ -212,8 +214,12 @@ input[type="number"]::-webkit-outer-spin-button {
   transition: border 0.1s linear;
 }
 
-.update_info_form_wrapper .header-title {
+.header-title {
   margin: 5rem 0;
+}
+
+.update_info_form_wrapper {
+  margin: 0 0 10em 0;
 }
 
 .update_info_form_wrapper h1 {
@@ -228,6 +234,40 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 21px;
   line-height: 32px;
   font-weight: 400;
+}
+
+#remove_confirmation_wrapper {
+  background: white;
+  height: 10em;
+  text-align: center;
+  width: 100%;
+}
+
+#remove_confirmation_title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+#remove_confirmation_subtitle {
+  padding: 0.5em;
+}
+
+#remove_confirmation_cancel,
+#remove_confirmation_remove {
+  margin-top: 1em;
+  float: left;
+  width: 50%;
+  height: 4em;
+  line-height: 4em;
+}
+
+#remove_confirmation_cancel {
+  background-color: #ccc;
+  color: #333;
+}
+#remove_confirmation_remove {
+  background-color: firebrick;
+  color: #eee;
 }
 
 #update_info_form_btn {

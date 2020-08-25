@@ -69,13 +69,15 @@ $item_notes = $passed_array['notes'];
     infoShipping.innerText = '<?php echo $item_shipping ?>';
     infoNotes.innerText = '<?php echo $item_notes ?>';
 
-    // hides table rows with no content
+    // hideIfEmpty(): DOM Element -> Void
+    // hides an element if its contents are empty
     function hideIfEmpty(el) {
         if (el.innerText === '') {
-            el.hidden = true;
+            el.style.display = "none";
         }
     }
 
+    // hides non-critical empty fields
     hideIfEmpty(infoShipping);
     hideIfEmpty(infoNotes);
 </script>
