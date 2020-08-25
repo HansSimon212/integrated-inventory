@@ -84,7 +84,7 @@ if (!empty($rm_info)) {
             </div>
             <label for="new_item_quantity_kg">Quantity (Kg):</label>
             <div class="form-group">
-                <input type="text" name="new_item_quantity_kg" class="form-control my-input" id="new_item_quantity_kg">
+                <input type="number" name="new_item_quantity_kg" class="form-control my-input" id="new_item_quantity_kg" min="0.001" step="0.001">
             </div>
             <div class="text-center ">
                 <input type="submit" value="Update Info" id="update_info_form_btn">
