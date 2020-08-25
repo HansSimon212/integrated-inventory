@@ -28,7 +28,7 @@ require("../lib/get-session-vars.php");
         } elseif ($status == 'info') {
             require("../lib/frontend/display_info_remove.php");
         } elseif ($status == 'success') {
-            require("../lib/frontend/success.php");
+            require("../lib/frontend/success_remove.php");
         } else {
             $err_msg = 'Invalid status "' . $status . '"';
             $_SESSION = [];

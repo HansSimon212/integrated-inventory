@@ -151,19 +151,18 @@ if ($previous_item_location == $new_item_location && $previous_item_quantity_kg 
 // Returns the message to be returned to the calling page on success
 function composeSuccessMessage($prev_loc, $prev_quant, $new_loc, $new_quant)
 {
-    global $passed_array;
+    global $passed_array, $item_uid;
 
-    $success_msg = '';
     $diff_loc = ($prev_loc != $new_loc);
     $diff_quant = ($prev_quant != $new_quant);
 
     // INVARIANT: either location or quantity was updated
     if ($diff_loc && !$diff_quant) {
-        return 'Successfully moved<br>' . $passed_array['name'] . '<br>Rack ' . $prev_loc . ' &#10230 Rack ' . $new_loc;
+        return 'Successfully moved<br>' . $passed_array['name'] . "<br>UID: " . $item_uid . '<br>Rack ' . $prev_loc . ' &#10230 Rack ' . $new_loc;
     } else if ($diff_quant && !$diff_loc) {
-        return 'Successfully changed quantity of<br>' . $passed_array['name'] . '<br>' . $prev_quant . ' Kg &#10230 ' . $new_quant . ' Kg';
+        return 'Successfully changed quantity of<br>' . $passed_array['name'] . "<br>UID: " . $item_uid . '<br>' . $prev_quant . ' Kg &#10230 ' . $new_quant . ' Kg';
     } else {
-        return 'Successfully moved<br>' . $passed_array['name'] . '<br>Rack ' . $prev_loc . ' &#10230 Rack ' . $new_loc . '<br>and changed quantity<br>' . $prev_quant . ' Kg &#10230 ' . $new_quant . ' Kg';
+        return 'Successfully moved<br>Name: ' . $passed_array['name'] . "<br>UID: " . $item_uid . '<br>Rack ' . $prev_loc . ' &#10230 Rack ' . $new_loc . '<br>and changed quantity<br>' . $prev_quant . ' Kg &#10230 ' . $new_quant . ' Kg';
     }
 }
 

@@ -24,11 +24,11 @@ EXPECTED VARIABLES
 
 <img src="https://freeiconshop.com/wp-content/uploads/edd/checkmark-flat.png" alt="Success Icon" style="width: 200px; margin: 30px 0;">
 <br>
-<div style="width: 100%; text-align: center; font-size: 18px; font-weight: 500;" id="success_msg">
+<div class="success_msg" id="success_msg">
 </div>
 
 <div>
-    <a href="scan.php"><button>Update Another Item</button></a>
+    <a href="remove-item.php" class="another_btn_link"><button class="another_btn">Remove Another Item</button></a>
 </div>
 
 <script>

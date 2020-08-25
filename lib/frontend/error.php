@@ -23,7 +23,7 @@
 
 -->
 
-<div id="err_msg" hidden></div>
+<div class="err_msg" id="err_msg" hidden></div>
 
 <?php
 // checks if an error code was passed, displays error message if one was

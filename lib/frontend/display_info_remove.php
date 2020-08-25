@@ -91,7 +91,7 @@ if (!empty($rm_info)) {
     }
 </script>
 
-<form action="../lib/backend/remove_item.php" id="remove_item_form" hidden>
+<form action="../lib/backend/remove_item.php" id="remove_item_form" method="post" hidden>
     <input type="text" id="sender" name="sender">
 </form>
 

@@ -51,13 +51,15 @@ function getPassedArray()
 
     if (!empty($rm_info)) {
         return $rm_info;
-    } else {
+    } else if (!empty($dispersion_info)) {
         return $dispersion_info;
+    } else {
+        returnToSender('', "Unrecognized item type (attempted item info update)", '', array(), array());
     }
 }
 
 $passed_array = getPassedArray();
-
+$item_uid = $passed_array['uid'];
 
 // returnToSender: String String String Array Array -> Void
 // Sets session variables and returns to calling script. If
@@ -104,26 +106,59 @@ function connectToDB()
     }
 }
 
+// queryDatabase(): String -> Void
+// Attempts to query the database with the given SQL query
+function queryDatabase($sql)
+{
+    global $con, $rm_info, $dispersion_info, $item_uid;
+
+    $result = $con->query($sql);
+
+    if (!$result) {
+        returnToSender('info', 'Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql, '', $rm_info, $dispersion_info);
+    }
+
+    if (mysqli_connect_errno()) {
+        returnToSender('info', 'Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error, '', $rm_info, $dispersion_info);
+    }
+}
+
+// composeSuccessMsg(): Array -> String
+// Returns a success message indicating successful transfer of item from
+// live inventory to ARCHIVE database
+function composeSuccessMessage($passed_array)
+{
+    global $rm_info, $dispersion_info;
+
+    if (!empty($rm_info)) {
+        return 'Successfully removed:<br>Name: ' . $passed_array['name'] . "<br>UID: " . $passed_array['uid'] . "R" . "<br>from the inventory.";
+    } else if (!empty($dispersion_info)) {
+        return 'Successfully removed:<br>Name: ' . $passed_array['name'] . "<br>UID: " . $passed_array['uid'] . "D" . "<br>from the inventory.";
+    } else {
+        return 'Successfully removed:<br>Name: ' . $passed_array['name'] . "<br>UID: " . $passed_array['uid'] . "<br>from the inventory.";
+    }
+}
+
 // attempts to connect to database
 connectToDB();
 
 // Builds and submits query based on item type
 if (!empty($rm_info)) {
-    $sql = "UPDATE 29_RAW_INVENTORY SET location=" . $new_item_location . ",
-        quantity_Kg=" . $new_item_quantity_kg . " WHERE uid=" . $item_uid . "";
+    $insert_sql = "INSERT INTO 29_RAW_INVENTORY_ARCHIVE SELECT * FROM 29_RAW_INVENTORY" . " WHERE uid=" . $item_uid . ";";
+    $delete_sql = "DELETE FROM 29_RAW_INVENTORY" . " WHERE uid=" . $item_uid . ";";
 
-    queryDatabase($sql);
+    queryDatabase($insert_sql);
+    queryDatabase($delete_sql);
 
     // We know the query was successful
-    returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
+    returnToSender('success', '', composeSuccessMessage($passed_array), $rm_info, $dispersion_info);
 } else if (!empty($dispersion_info)) {
-    $sql = "UPDATE 29_Dispersion_Inventory SET location=" . $new_item_location . ",
-        quantity_Kg=" . $new_item_quantity_kg . " WHERE uid=" . $item_uid . "";
+    $insert_sql = "INSERT INTO 29_Dispersion_Inventory_ARCHIVE SELECT * FROM 29_Dispersion_Inventory" . " WHERE uid=" . $item_uid . ";";
+    $delete_sql = "DELETE FROM 29_Dispersion_Inventory" . " WHERE uid=" . $item_uid . ";";
 
-    queryDatabase($sql);
+    queryDatabase($insert_sql);
+    queryDatabase($delete_sql);
+
     // We know the query was successful
-
-    returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
-} else {
-    returnToSender('', "Unrecognized item type (attempted item info update)", '', array(), array());
+    returnToSender('success', '', composeSuccessMessage($passed_array), $rm_info, $dispersion_info);
 }
