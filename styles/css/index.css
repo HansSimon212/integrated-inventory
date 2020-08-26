@@ -78,6 +78,10 @@ footer {
   text-align: center;
 }
 
+.wrapper > * {
+  margin: 0 auto;
+}
+
 #qr-canvas {
   margin: 0;
   border: thin solid #333;
@@ -242,6 +246,7 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 10em;
   text-align: center;
   width: 90%;
+  margin: 0 auto;
 }
 
 #remove_confirmation_title,
@@ -259,6 +264,7 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 50%;
   height: 4em;
   line-height: 4em;
+  font-size: 20px;
 }
 
 #remove_confirmation_cancel {
@@ -272,8 +278,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #recover_confirmation_recover {
-  background-color: #4bca81;
-  color: #333;
+  background-color: #4bb543;
+  color: black;
 }
 
 #update_info_form_btn {
