@@ -39,8 +39,8 @@ require("../lib/get-session-vars.php");
 
     <footer>
         <nav>
-            <a href="find-item.php">
-                <i class="fa fa-fw fa-search nav--icon"></i>
+            <a href="recover-item.php">
+                <i class="fa fa-fw fa-reply nav--icon"></i>
             </a>
             <a href="scan.php">
                 <i class="fa fa-fw fa-qrcode nav--icon"></i>

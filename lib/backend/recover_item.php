@@ -8,12 +8,10 @@ session_start();
 
 $_POST: 
     > 'sender'      : relative path (relative to frontend/index.php) of the calling script
-    > 'new_item_location' : new location for the scanned/looked up item
-    > 'new_item_quantity_kg' : new quantity for the scanned/looked up item
     
 $_SESSION:
-    > 'rm_info'  : array of retrieved information about a raw material, if one was scanned
-    > 'dispersion_info'  : array of retrieved information about a raw material, if one was scanned
+    > 'rm_info'  : array of information about a raw material if one was scanned
+    > 'dispersion_info'  : array of information about a dispersion if one was scanned
 
 ====================================================================================================
                                     VARIABLES SET BEFORE RETURN
@@ -39,6 +37,7 @@ $_SESSION:
 */
 
 $sender = $_POST['sender']; // address this script was invoked from
+$destination = "Location: ../../src/" . $sender; // calling script
 
 // one of these is empty, one contains information about an item
 $rm_info = $_SESSION['rm_info'];
@@ -52,18 +51,15 @@ function getPassedArray()
 
     if (!empty($rm_info)) {
         return $rm_info;
-    } else {
+    } else if (!empty($dispersion_info)) {
         return $dispersion_info;
+    } else {
+        returnToSender('', "Unrecognized item type (attempted item info update)", '', array(), array());
     }
 }
 
 $passed_array = getPassedArray();
-
-$new_item_location = $_POST['new_item_location'];
-$new_item_quantity_kg = $_POST['new_item_quantity_kg'];
 $item_uid = $passed_array['uid'];
-
-$destination = "Location: ../../src/" . $sender; // calling script
 
 // returnToSender: String String String Array Array -> Void
 // Sets session variables and returns to calling script. If
@@ -110,9 +106,8 @@ function connectToDB()
     }
 }
 
-// queryDatabase(): String -> Array
-// Queries the database with the given query, returns array representing result if query
-// was successful and return is non-empty
+// queryDatabase(): String -> Void
+// Attempts to query the database with the given SQL query
 function queryDatabase($sql)
 {
     global $con, $rm_info, $dispersion_info, $item_uid;
@@ -123,71 +118,47 @@ function queryDatabase($sql)
         returnToSender('info', 'Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql, '', $rm_info, $dispersion_info);
     }
 
-    if (mysqli_errno($con)) {
+    if (mysqli_connect_errno()) {
         returnToSender('info', 'Database query failed: <br> uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error, '', $rm_info, $dispersion_info);
     }
-    return mysqli_fetch_array($result);
 }
 
-// $new_item_quantity_kg
-if ($new_item_quantity_kg <= 0 || !$new_item_quantity_kg) {
-    returnToSender('info', 'Invalid item quantity: ' . $new_item_quantity_kg . '<br>Please input
-    a positive number.', '', $rm_info, $dispersion_info);
-}
-
-// $new_item_location
-if ($new_item_location == '' || ctype_space($new_item_location)) {
-    returnToSender('info', 'Please enter an item location.<br>No location was given.', '', $rm_info, $dispersion_info);
-}
-
-// Attempts to connect to database
-connectToDB();
-
-// gets previous location and weight
-$previous_item_location = $passed_array['location'];
-$previous_item_quantity_kg = $passed_array['quantity_Kg'];
-
-// if neither location nor quantity is going to change, returns with error
-if ($previous_item_location == $new_item_location && $previous_item_quantity_kg == $new_item_quantity_kg) {
-    returnToSender('info', 'Item already has<br>Location: ' . $new_item_location . "<br>Quantity: " . $new_item_quantity_kg, '', $rm_info, $dispersion_info);
-}
-
-// composeSuccessMessage(): String String -> String
-// Returns the message to be returned to the calling page on success
-function composeSuccessMessage($prev_loc, $prev_quant, $new_loc, $new_quant)
+// composeSuccessMsg(): Array -> String
+// Returns a success message indicating successful transfer of item from
+// ARCHIVE database to live inventory
+function composeSuccessMessage($passed_array)
 {
-    global $passed_array, $item_uid;
+    global $rm_info, $dispersion_info;
 
-    $diff_loc = ($prev_loc != $new_loc);
-    $diff_quant = ($prev_quant != $new_quant);
-
-    // INVARIANT: either location or quantity was updated
-    if ($diff_loc && !$diff_quant) {
-        return 'Successfully moved<br>' . $passed_array['name'] . "<br>UID: " . $item_uid . '<br>Rack ' . $prev_loc . ' &#10230 Rack ' . $new_loc;
-    } else if ($diff_quant && !$diff_loc) {
-        return 'Successfully changed quantity of<br>' . $passed_array['name'] . "<br>UID: " . $item_uid . '<br>' . $prev_quant . ' Kg &#10230 ' . $new_quant . ' Kg';
+    if (!empty($rm_info)) {
+        return 'Successfully recovered:<br>Name: ' . $passed_array['name'] . "<br>UID: " . $passed_array['uid'] . "R" . "<br>from the archive.";
+    } else if (!empty($dispersion_info)) {
+        return 'Successfully recovered:<br>Name: ' . $passed_array['name'] . "<br>UID: " . $passed_array['uid'] . "D" . "<br>from the archive.";
     } else {
-        return 'Successfully moved<br>Name: ' . $passed_array['name'] . "<br>UID: " . $item_uid . '<br>Rack ' . $prev_loc . ' &#10230 Rack ' . $new_loc . '<br>and changed quantity<br>' . $prev_quant . ' Kg &#10230 ' . $new_quant . ' Kg';
+        return 'Successfully recovered:<br>Name: ' . $passed_array['name'] . "<br>UID: " . $passed_array['uid'] . "<br>from the archive.";
     }
 }
+
+// attempts to connect to database
+connectToDB();
 
 // Builds and submits query based on item type
 if (!empty($rm_info)) {
-    $sql = "UPDATE 29_RAW_INVENTORY SET location=" . $new_item_location . ",
-        quantity_Kg=" . $new_item_quantity_kg . " WHERE uid=" . $item_uid . "";
+    $insert_sql = "INSERT INTO 29_RAW_INVENTORY SELECT * FROM 29_RAW_INVENTORY_ARCHIVE" . " WHERE uid=" . $item_uid . ";";
+    $delete_sql = "DELETE FROM 29_RAW_INVENTORY_ARCHIVE" . " WHERE uid=" . $item_uid . ";";
 
-    queryDatabase($sql);
+    queryDatabase($insert_sql);
+    queryDatabase($delete_sql);
 
     // We know the query was successful
-    returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
+    returnToSender('success', '', composeSuccessMessage($passed_array), $rm_info, $dispersion_info);
 } else if (!empty($dispersion_info)) {
-    $sql = "UPDATE 29_Dispersion_Inventory SET location=" . $new_item_location . ",
-        quantity_Kg=" . $new_item_quantity_kg . " WHERE uid=" . $item_uid . "";
+    $insert_sql = "INSERT INTO 29_Dispersion_Inventory SELECT * FROM 29_Dispersion_Inventory_ARCHIVE" . " WHERE uid=" . $item_uid . ";";
+    $delete_sql = "DELETE FROM 29_Dispersion_Inventory_ARCHIVE" . " WHERE uid=" . $item_uid . ";";
 
-    queryDatabase($sql);
+    queryDatabase($insert_sql);
+    queryDatabase($delete_sql);
+
     // We know the query was successful
-
-    returnToSender('success', '', composeSuccessMessage($previous_item_location, $previous_item_quantity_kg, $new_item_location, $new_item_quantity_kg), array(), array());
-} else {
-    returnToSender('', "Unrecognized item type (attempted item info update)", '', array(), array());
+    returnToSender('success', '', composeSuccessMessage($passed_array), $rm_info, $dispersion_info);
 }
