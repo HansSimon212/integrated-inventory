@@ -236,24 +236,24 @@ input[type="number"]::-webkit-outer-spin-button {
   font-weight: 400;
 }
 
-#remove_confirmation_wrapper {
+#remove_confirmation_wrapper,
+#recover_confirmation_wrapper {
   background: white;
   height: 10em;
   text-align: center;
   width: 90%;
 }
 
-#remove_confirmation_title {
+#remove_confirmation_title,
+#recover_confirmation_title {
   font-size: 22px;
   font-weight: 600;
 }
 
-#remove_confirmation_subtitle {
-  padding: 0.5em;
-}
-
 #remove_confirmation_cancel,
-#remove_confirmation_remove {
+#remove_confirmation_remove,
+#recover_confirmation_cancel,
+#recover_confirmation_recover {
   margin-top: 1em;
   float: left;
   width: 50%;
@@ -265,9 +265,15 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: #ccc;
   color: #333;
 }
-#remove_confirmation_remove {
+#remove_confirmation_remove,
+#recover_confirmation_cancel {
   background-color: firebrick;
   color: #eee;
+}
+
+#recover_confirmation_recover {
+  background-color: #4bca81;
+  color: #333;
 }
 
 #update_info_form_btn {
