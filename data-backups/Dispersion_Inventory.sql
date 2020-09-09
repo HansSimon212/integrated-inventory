@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `29_Dispersion_Inventory`
+-- Table structure for table `Dispersion_Inventory`
 --
 
-CREATE TABLE `29_Dispersion_Inventory` (
+CREATE TABLE `Dispersion_Inventory` (
   `name` varchar(100) NOT NULL,
   `MFG` varchar(6) DEFAULT NULL,
   `formula` varchar(20) DEFAULT NULL,
@@ -43,10 +43,10 @@ CREATE TABLE `29_Dispersion_Inventory` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `29_Dispersion_Inventory`
+-- Dumping data for table `Dispersion_Inventory`
 --
 
-INSERT INTO `29_Dispersion_Inventory` (`name`, `MFG`, `formula`, `Exp_Date`, `quantity_Kg`, `pack_Out`, `CM`, `location`, `shipping`, `notes`, `uid`) VALUES
+INSERT INTO `Dispersion_Inventory` (`name`, `MFG`, `formula`, `Exp_Date`, `quantity_Kg`, `pack_Out`, `CM`, `location`, `shipping`, `notes`, `uid`) VALUES
 ('MODIFIER 600', '0054', '03-136B', '2021-03-19', 37, '15 CHD', 'IP BRANDS', '204', '', 'WAITING ON IP BRANDS SHIPMENT', 1),
 ('MODIFIER 400', '0053', '03-135B', '2021-03-18', 5, '2.5 GP', 'IP BRANDS', '204', '', 'WAITING ON IP BRANDS SHIPMENT', 2),
 ('MODIFIER 400', '0053', '03-135B', '2021-03-18', 20, '6 GP', 'IP BRANDS', '204', '', 'WAITING ON IP BRANDS SHIPMENT', 3),
@@ -338,9 +338,9 @@ INSERT INTO `29_Dispersion_Inventory` (`name`, `MFG`, `formula`, `Exp_Date`, `qu
 --
 
 --
--- Indexes for table `29_Dispersion_Inventory`
+-- Indexes for table `Dispersion_Inventory`
 --
-ALTER TABLE `29_Dispersion_Inventory`
+ALTER TABLE `Dispersion_Inventory`
   ADD PRIMARY KEY (`uid`);
 
 --
@@ -348,9 +348,9 @@ ALTER TABLE `29_Dispersion_Inventory`
 --
 
 --
--- AUTO_INCREMENT for table `29_Dispersion_Inventory`
+-- AUTO_INCREMENT for table `Dispersion_Inventory`
 --
-ALTER TABLE `29_Dispersion_Inventory`
+ALTER TABLE `Dispersion_Inventory`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=286;
 COMMIT;
 

@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `29_RAW_INVENTORY`
+-- Table structure for table `Raw_Inventory`
 --
 
-CREATE TABLE `29_RAW_INVENTORY` (
+CREATE TABLE `Raw_Inventory` (
   `RM` varchar(20) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `LOT` varchar(20) DEFAULT NULL,
@@ -47,10 +47,10 @@ CREATE TABLE `29_RAW_INVENTORY` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `29_RAW_INVENTORY`
+-- Dumping data for table `Raw_Inventory`
 --
 
-INSERT INTO `29_RAW_INVENTORY` (`RM`, `name`, `LOT`, `Exp_Date`, `location`, `quantity_Kg`, `LEI`, `YOU`, `BEN`, `EXP`, `CS`, `container`, `notes`, `ECT`, `uid`) VALUES
+INSERT INTO `Raw_Inventory` (`RM`, `name`, `LOT`, `Exp_Date`, `location`, `quantity_Kg`, `LEI`, `YOU`, `BEN`, `EXP`, `CS`, `container`, `notes`, `ECT`, `uid`) VALUES
 ('01.0040.0014', 'ACB COLLAGEN PET WATER', '01.11.19B', '2021-02-11', '220', 475.6, 0, 0, 0, 1, 1, '', '', '', 1),
 ('01.0040.0015', 'AC COLLAGEN AMINO ACIDS 30 PF', '05.16.19', '2021-04-24', '69', 3.75, 1, 0, 0, 0, 0, '', '', '', 2),
 ('01.0095.0001', 'ZINC GLUCONATE', '08.30.16', '2021-12-02', '339', 21, 1, 0, 0, 0, 0, '', '', '', 3),
@@ -512,7 +512,7 @@ INSERT INTO `29_RAW_INVENTORY` (`RM`, `name`, `LOT`, `Exp_Date`, `location`, `qu
 ('15.5353.0001', 'GLYCERINE', '02.07.19', '2020-05-01', '324', 13.65, 0, 0, 1, 0, 0, '', '', '', 459),
 ('15.5353.0001', 'GLYCERINE 99.7% USP  ', '02.06.19', '2020-05-01', '324', 13.1, 0, 0, 1, 0, 0, '', '', '', 460),
 ('15.5360.0002', 'GLYCERINE 99.7% USP', '07.24.19', '2021-01-03', '324', 0.3, 0, 0, 1, 0, 1, '', '', '', 461);
-INSERT INTO `29_RAW_INVENTORY` (`RM`, `name`, `LOT`, `Exp_Date`, `location`, `quantity_Kg`, `LEI`, `YOU`, `BEN`, `EXP`, `CS`, `container`, `notes`, `ECT`, `uid`) VALUES
+INSERT INTO `Raw_Inventory` (`RM`, `name`, `LOT`, `Exp_Date`, `location`, `quantity_Kg`, `LEI`, `YOU`, `BEN`, `EXP`, `CS`, `container`, `notes`, `ECT`, `uid`) VALUES
 ('15.5353.0001', 'GLYCERIN 99.7% USP KOSHER VEG', '06.15.20', '2021-12-21', '221', 4.15, 0, 0, 1, 0, 0, '', '', '', 462),
 ('15.5353.0001', 'GLYCERIN 99.7% USP KOSHER VEG', '06.04.20', '2022-04-03', '240', 932.85, 1, 0, 0, 0, 0, '', '', '', 463),
 ('15.5353.0001', 'GLYCERIN 99.7% USP KOSHER VEG', '06.19.20', '2022-04-03', '288', 999.71, 1, 0, 0, 0, 0, '', '', '', 464),
@@ -617,9 +617,9 @@ INSERT INTO `29_RAW_INVENTORY` (`RM`, `name`, `LOT`, `Exp_Date`, `location`, `qu
 --
 
 --
--- Indexes for table `29_RAW_INVENTORY`
+-- Indexes for table `Raw_Inventory`
 --
-ALTER TABLE `29_RAW_INVENTORY`
+ALTER TABLE `Raw_Inventory`
   ADD PRIMARY KEY (`uid`);
 
 --
@@ -627,9 +627,9 @@ ALTER TABLE `29_RAW_INVENTORY`
 --
 
 --
--- AUTO_INCREMENT for table `29_RAW_INVENTORY`
+-- AUTO_INCREMENT for table `Raw_Inventory`
 --
-ALTER TABLE `29_RAW_INVENTORY`
+ALTER TABLE `Raw_Inventory`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=560;
 COMMIT;
 
