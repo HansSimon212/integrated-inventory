@@ -69,6 +69,7 @@ function returnToSender($status, $errMsg, $successMsg, $rm_info, $dispersion_inf
 // Attempts to establish connection to databse
 function connectToDB()
 {
+    echo "reached 1";
     $db = parse_url(getenv("DATABASE_URL"));
 
     $pdo = new PDO("pgsql:" . sprintf(
@@ -81,6 +82,7 @@ function connectToDB()
     ));
 
     $isNull = ($pdo) ? "PDO succeeded" : "PDO failed";
+    echo "reached 2";
     echo "<h1> " . $pdo . " </h1>";
     exit();
 }
@@ -95,15 +97,13 @@ function queryDatabase($sql)
     $result = $pdo->query($sql);
 
     if (!$result) {
-        // query failed
         returnToSender('', 'Database query failed: <br>uid:' . $item_uid . '<br>query: ' . $sql, '', array(), array());
     }
 
-    // returns the return row
     return $pdo->fetch();
 }
 
-// Returns an error if item_uid is poorly formed
+// scanned uid is poorly formed
 if (strlen($item_uid) < 2) {
     returnToSender('', 'Poorly formed uid:<br>' . $item_uid, '', array(), array());
 }
@@ -128,9 +128,7 @@ if ($casted_uid_num <= 0) {
     returnToSender('', 'UID\'s must be greater than 0:<br>' . $item_uid, '', array(), array());
 }
 
-// Attempts to connect to database
 connectToDB();
-
 
 // Builds query based on item type (last character in item_uid)
 switch ($item_type) {
