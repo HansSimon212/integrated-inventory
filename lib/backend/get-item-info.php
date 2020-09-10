@@ -3,6 +3,10 @@ session_start();
 // Forcibly clears all session variables to ensure none exist.
 $_SESSION = [];
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 /*
 ====================================================================================================
                                         EXPECTED VARIABLES
