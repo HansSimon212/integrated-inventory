@@ -69,20 +69,16 @@ function returnToSender($status, $errMsg, $successMsg, $rm_info, $dispersion_inf
 // Attempts to establish connection to databse
 function connectToDB()
 {
-    // Variables required for MySQL connection
-    $server = "208.109.166.118";
-    $username = 'danielwilczak';
-    $password = 'Dmw0234567';
-    $database = "LEI_Inventory";
+    $db = parse_url(getenv("DATABASE_URL"));
 
-    // Attempts connection to database
-    global $con;
-    $con = mysqli_connect($server, $username, $password, $database);
-
-    // Returns with an error message if error occurs
-    if (mysqli_connect_errno()) {
-        returnToSender('', 'Connection to database failed.<br>Error: ' . $con->error, '', array(), array());
-    }
+    $pdo = new PDO("pgsql:" . sprintf(
+        "host=%s;port=%s;user=%s;password=%s;dbname=%s",
+        $db["host"],
+        $db["port"],
+        $db["user"],
+        $db["pass"],
+        ltrim($db["path"], "/")
+    ));
 }
 
 // queryDatabase(): String -> Array
@@ -90,21 +86,17 @@ function connectToDB()
 // was successful and return is non-empty
 function queryDatabase($sql)
 {
-    global $con, $item_uid;
+    global $pdo, $item_uid;
 
-    $result = $con->query($sql);
+    $result = $pdo->query($sql);
 
     if (!$result) {
         // query failed
-        returnToSender('', 'Database query failed: <br>uid:' . $item_uid . '<br>query: ' . $sql . '<br>Error: ' . $con->error, '', array(), array());
-    }
-    if ($result->num_rows < 1) {
-        // return of query was empty
-        returnToSender('', 'No matching entry in database found for uid: ' . $item_uid, '', array(), array());
+        returnToSender('', 'Database query failed: <br>uid:' . $item_uid . '<br>query: ' . $sql, '', array(), array());
     }
 
     // returns the return row
-    return mysqli_fetch_array($result);
+    return $pdo->fetch();
 }
 
 // Returns an error if item_uid is poorly formed
