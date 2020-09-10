@@ -124,11 +124,12 @@ if ($casted_uid_num <= 0) {
     returnToSender('', 'UID\'s must be greater than 0:<br>' . $item_uid, '', array(), array());
 }
 
+// Attempts to connect to database
+connectToDB();
+
 echo "<h1> REACHED </h1>";
 exit();
 
-// Attempts to connect to database
-connectToDB();
 
 // Builds query based on item type (last character in item_uid)
 switch ($item_type) {
