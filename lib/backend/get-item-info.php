@@ -124,6 +124,9 @@ if ($casted_uid_num <= 0) {
     returnToSender('', 'UID\'s must be greater than 0:<br>' . $item_uid, '', array(), array());
 }
 
+echo "<h1> REACHED </h1>";
+exit();
+
 // Attempts to connect to database
 connectToDB();
 
