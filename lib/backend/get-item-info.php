@@ -140,6 +140,14 @@ if ($casted_uid_num <= 0) {
 // Attempts to connect to database
 connectToDB();
 
+if (is_null($pdo)) {
+    echo "<h1>PDO is null<\h1>";
+    exit();
+} else {
+    exit();
+    echo "<h1>PDO is non-null<\h1>";
+}
+
 // Builds query based on item type (last character in item_uid)
 switch ($item_type) {
     case "R":
