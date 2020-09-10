@@ -82,6 +82,10 @@ function connectToDB()
         $db["pass"],
         ltrim($db["path"], "/")
     ));
+
+    if (!$pdo) {
+        returnToSender('', 'Failed to establish PDO database connection', '', array(), array());
+    }
 }
 
 // queryDatabase(): String -> Array
@@ -90,26 +94,16 @@ function connectToDB()
 function queryDatabase($sql)
 {
     global $pdo, $item_uid, $casted_uid_num;
-    echo "<h1>before prepare</h1>";
 
     $stmt = $pdo->prepare($sql);
-    echo "<h1>before execute</h1>";
-
     $stmt->execute([$casted_uid_num]);
-    echo "<h1>before fetch</h1>";
-
     $result = $stmt->fetch();
 
     if (!$result) {
-        echo "<h1>Query failed</h1>";
         exit();
-
-        // query failed
         returnToSender('', 'Database query failed: <br>uid:' . $item_uid . '<br>query: ' . $sql, '', array(), array());
     }
 
-    echo "<h1>Reached after query fail check.</h1>";
-    exit();
     // returns the return row
     return $pdo->fetch();
 }
