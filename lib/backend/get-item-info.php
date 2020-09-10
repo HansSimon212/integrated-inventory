@@ -83,7 +83,7 @@ function connectToDB()
         ltrim($db["path"], "/")
     ));
 
-    if (!$pdo) {
+    if (is_null($pdo)) {
         returnToSender('', 'Failed to establish PDO database connection', '', array(), array());
     }
 }
