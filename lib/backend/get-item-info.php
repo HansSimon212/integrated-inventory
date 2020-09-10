@@ -79,6 +79,9 @@ function connectToDB()
         $db["pass"],
         ltrim($db["path"], "/")
     ));
+
+    echo "<h1> REACHED 2 </h1>";
+    exit();
 }
 
 // queryDatabase(): String -> Array
@@ -126,9 +129,6 @@ if ($casted_uid_num <= 0) {
 
 // Attempts to connect to database
 connectToDB();
-
-echo "<h1> REACHED </h1>";
-exit();
 
 
 // Builds query based on item type (last character in item_uid)
