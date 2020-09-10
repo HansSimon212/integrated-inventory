@@ -80,7 +80,8 @@ function connectToDB()
         ltrim($db["path"], "/")
     ));
 
-    echo "<h1> REACHED 2 </h1>";
+    $isNull = ($pdo) ? "PDO succeeded" : "PDO failed";
+    echo "<h1> " . $pdo . " </h1>";
     exit();
 }
 
