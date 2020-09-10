@@ -46,11 +46,10 @@ $destination = "Location: ../../src/" . $sender;
 function returnToSender($status, $errMsg, $successMsg, $rm_info, $dispersion_info)
 {
     // gets global reference
-    global $destination, $con;
+    global $destination, $pdo;
 
-    // database connection has been attempted and succeeded
-    if (isset($con) && $con) {
-        $con->close();
+    if ($pdo) {
+        $pdo = NULL;
     }
 
     $_SESSION = [];
@@ -142,7 +141,6 @@ connectToDB();
 // Builds query based on item type (last character in item_uid)
 switch ($item_type) {
     case "R":
-        echo "<h1> REACHED 'R' ITEM TYPE </h1>";
         $sql = "SELECT * FROM 29_RAW_INVENTORY WHERE uid=" . "?" . "";
         returnToSender('info', '', '', queryDatabase($sql), array());
         break;
