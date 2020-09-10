@@ -86,23 +86,27 @@ function connectToDB()
 // was successful and return is non-empty
 function queryDatabase($sql)
 {
-    global $pdo, $item_uid;
+    global $pdo, $item_uid, $casted_uid_num;
+    echo "<h1>before prepare</h1>";
 
-    echo "<h1>Reached before pdo->query</h1>";
+    $stmt = $pdo->prepare($sql);
+    echo "<h1>before execute</h1>";
 
-    $result = $pdo->query($sql);
+    $stmt->execute([$casted_uid_num]);
+    echo "<h1>before fetch</h1>";
 
-    echo "<h1>Reached after pdo->query</h1>";
+    $result = $stmt->fetch();
 
     if (!$result) {
         echo "<h1>Query failed</h1>";
+        exit();
 
         // query failed
         returnToSender('', 'Database query failed: <br>uid:' . $item_uid . '<br>query: ' . $sql, '', array(), array());
     }
 
     echo "<h1>Reached after query fail check.</h1>";
-
+    exit();
     // returns the return row
     return $pdo->fetch();
 }
@@ -139,11 +143,11 @@ connectToDB();
 switch ($item_type) {
     case "R":
         echo "<h1> REACHED 'R' ITEM TYPE </h1>";
-        $sql = "SELECT * FROM 29_RAW_INVENTORY WHERE uid=" . $casted_uid_num . "";
+        $sql = "SELECT * FROM 29_RAW_INVENTORY WHERE uid=" . "?" . "";
         returnToSender('info', '', '', queryDatabase($sql), array());
         break;
     case "D":
-        $sql = "SELECT * FROM 29_Dispersion_Inventory WHERE uid=" . $casted_uid_num . "";
+        $sql = "SELECT * FROM 29_Dispersion_Inventory WHERE uid=" . "?" . "";
         returnToSender('info', '', '', array(), queryDatabase($sql));
         break;
     default:
