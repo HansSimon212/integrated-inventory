@@ -69,7 +69,6 @@ function returnToSender($status, $errMsg, $successMsg, $rm_info, $dispersion_inf
 // Attempts to establish connection to databse
 function connectToDB()
 {
-    echo "reached 1";
     $db = parse_url(getenv("DATABASE_URL"));
 
     $pdo = new PDO("pgsql:" . sprintf(
@@ -80,11 +79,6 @@ function connectToDB()
         $db["pass"],
         ltrim($db["path"], "/")
     ));
-
-    $isNull = ($pdo) ? "PDO succeeded" : "PDO failed";
-    echo "reached 2";
-    echo "<h1> " . $isNull . " </h1>";
-    exit();
 }
 
 // queryDatabase(): String -> Array
@@ -94,16 +88,26 @@ function queryDatabase($sql)
 {
     global $pdo, $item_uid;
 
+    echo "<h1>Reached before pdo->query</h1>";
+
     $result = $pdo->query($sql);
 
+    echo "<h1>Reached after pdo->query</h1>";
+
     if (!$result) {
+        echo "<h1>Query failed</h1>";
+
+        // query failed
         returnToSender('', 'Database query failed: <br>uid:' . $item_uid . '<br>query: ' . $sql, '', array(), array());
     }
 
+    echo "<h1>Reached after query fail check.</h1>";
+
+    // returns the return row
     return $pdo->fetch();
 }
 
-// scanned uid is poorly formed
+// Returns an error if item_uid is poorly formed
 if (strlen($item_uid) < 2) {
     returnToSender('', 'Poorly formed uid:<br>' . $item_uid, '', array(), array());
 }
@@ -128,11 +132,13 @@ if ($casted_uid_num <= 0) {
     returnToSender('', 'UID\'s must be greater than 0:<br>' . $item_uid, '', array(), array());
 }
 
+// Attempts to connect to database
 connectToDB();
 
 // Builds query based on item type (last character in item_uid)
 switch ($item_type) {
     case "R":
+        echo "<h1> REACHED 'R' ITEM TYPE </h1>";
         $sql = "SELECT * FROM 29_RAW_INVENTORY WHERE uid=" . $casted_uid_num . "";
         returnToSender('info', '', '', queryDatabase($sql), array());
         break;
