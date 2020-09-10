@@ -83,7 +83,7 @@ function connectToDB()
 
     $isNull = ($pdo) ? "PDO succeeded" : "PDO failed";
     echo "reached 2";
-    echo "<h1> " . $pdo . " </h1>";
+    echo "<h1> " . $isNull . " </h1>";
     exit();
 }
 
