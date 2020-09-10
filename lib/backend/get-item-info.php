@@ -43,6 +43,8 @@ $item_uid = $_POST['item_uid']; // form: '{Number}' + {'B' | 'R' | 'D'}
 $sender = $_POST['sender']; // address this script was invoked from
 $destination = "Location: ../../src/" . $sender;
 
+$pdo;
+
 // returnToSender: String String String Array Array -> Void
 // Sets session variables and returns to calling script. If
 // database connection is active/open, closes it. Returns given status, error message,
@@ -72,6 +74,8 @@ function returnToSender($status, $errMsg, $successMsg, $rm_info, $dispersion_inf
 // Attempts to establish connection to databse
 function connectToDB()
 {
+    global $pdo;
+
     $db = parse_url(getenv("DATABASE_URL"));
 
     $pdo = new PDO("pgsql:" . sprintf(
