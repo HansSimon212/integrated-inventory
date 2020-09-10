@@ -7,38 +7,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-/*
-====================================================================================================
-                                        EXPECTED VARIABLES
-====================================================================================================
-
-$_POST: 
-    > 'item_uid'    : id of an item scanned by the user. If formed correctly
-    > 'sender'      : the relative path (relative to frontend/index.php) of the calling script
-
-====================================================================================================
-                                    VARIABLES SET BEFORE RETURN
-====================================================================================================
-
-$_SESSION:
-    > 'status' :String             
-    : what status the of the calling page should be (one of    '',    'info')
-    
-    > 'err_msg' :String 
-    : any error message to be used in calling script
-    
-    > 'success_msg' :String        
-    : any success message to be used in calling script 
-    
-    > 'rm_info' :String             
-    : retrieved information about a raw material (serialized Array)
-    
-    > 'dispersion_info' :String
-    : retrieved information about a dispersion (serialized Array)
-
-    ================================================================================================
-*/
-
 $item_uid = $_POST['item_uid']; // form: '{Number}' + {'B' | 'R' | 'D'}
 $sender = $_POST['sender']; // address this script was invoked from
 $destination = "Location: ../../src/" . $sender;
@@ -108,7 +76,6 @@ function queryDatabase($sql)
         returnToSender('', 'Database query failed: <br>uid:' . $item_uid . '<br>query: ' . $sql, '', array(), array());
     }
 
-    // returns the return row
     return $pdo->fetch();
 }
 
@@ -137,18 +104,8 @@ if ($casted_uid_num <= 0) {
     returnToSender('', 'UID\'s must be greater than 0:<br>' . $item_uid, '', array(), array());
 }
 
-echo "<h1> before database connection </h1>";
-
 // Attempts to connect to database
 connectToDB();
-
-if (is_null($pdo)) {
-    echo "<h1>PDO is null</h1>";
-    exit();
-} else {
-    echo "<h1>PDO is non-null</h1>";
-    exit();
-}
 
 // Builds query based on item type (last character in item_uid)
 switch ($item_type) {
