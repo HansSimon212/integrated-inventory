@@ -137,15 +137,17 @@ if ($casted_uid_num <= 0) {
     returnToSender('', 'UID\'s must be greater than 0:<br>' . $item_uid, '', array(), array());
 }
 
+echo "<h1> before database connection </h1>";
+
 // Attempts to connect to database
 connectToDB();
 
 if (is_null($pdo)) {
-    echo "<h1>PDO is null<\h1>";
+    echo "<h1>PDO is null</h1>";
     exit();
 } else {
+    echo "<h1>PDO is non-null</h1>";
     exit();
-    echo "<h1>PDO is non-null<\h1>";
 }
 
 // Builds query based on item type (last character in item_uid)
